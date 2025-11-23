@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "timer_manager.h": "c",
+        "stm32f4xx.h": "c",
+        "stm32f4xx_conf.h": "c",
+        "stdint.h": "c",
+        "drv_misc_func.h": "c",
+        "kservice.h": "c",
+        "drv_gpio.h": "c",
+        "stdlib.h": "c",
+        "simple_event_engine.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}

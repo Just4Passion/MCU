@@ -8,7 +8,11 @@
         "kservice.h": "c",
         "drv_gpio.h": "c",
         "stdlib.h": "c",
-        "simple_event_engine.h": "c"
+        "simple_event_engine.h": "c",
+        "drv_i2c.h": "c",
+        "stdbool.h": "c",
+        "drv_usart.h": "c",
+        "drv_eeprom.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

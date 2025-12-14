@@ -96,7 +96,7 @@ int dy_bus_attach_device(dy_bus_t *bus, dy_device_t *dev)
     
     // 检查设备是否已挂载 - 我需要使用名字, 而不是指针
     dy_device_t *temp = bus->device_list;
-    while (temp) 
+    while (temp != NULL) 
     {
         if (0 == strcmp(temp->name, dev->name))
         {
@@ -106,12 +106,9 @@ int dy_bus_attach_device(dy_bus_t *bus, dy_device_t *dev)
     }
     
     dev->bus = bus;
-    dev->next = bus->device_list;
-    bus->device_list = dev;
-    bus->device_count++;
-
-    /*初始化设备*/
-    //dev->ops->init(dev);
+    //dev->next = NULL;//bus->device_list;
+    //bus->device_list = dev;
+    //bus->device_count++;
     return DY_EOK;
 }
 

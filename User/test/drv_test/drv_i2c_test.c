@@ -92,47 +92,6 @@ void key_event_handler(event_t *event)
 
 void eeprom_write_read_compare()
 {
-	dy_device_t *eeprom_dev = dy_find_device("eeprom");
-	if (NULL == eeprom_dev)
-	{
-		return;
-	}
-	int32_t ret = 0;
-	static uint8_t mem_addr = 0;
-	mem_addr++;
-	if (8 == mem_addr)
-	{
-		mem_addr = 0;
-	}
-	printf("mem_addr = %d\r\n", mem_addr);
-	uint8_t data_write[256] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
-	uint8_t data_read[256] = {0};
-
-	/*从0地址写入*/
-	eeprom_dev->ops->control(eeprom_dev, EEPROM_SET_MEM_ADDR, &mem_addr);
-	ret = eeprom_dev->ops->write(eeprom_dev, data_write, 16);
-
-	/*从0地址读取*/
-	eeprom_dev->ops->control(eeprom_dev, EEPROM_SET_MEM_ADDR, &mem_addr);
-	ret = eeprom_dev->ops->read(eeprom_dev, data_read, 16);
-	/*比较写入和读取的结果*/
-	if (0 == memcmp(data_write, data_read, 16))
-	{
-		printf("data is OK\r\n");
-	}
-	else
-	{
-		printf("data is error\r\n");
-		uint8_t i = 0;
-		printf("read info: ");
-		for (i = 0; i < 16; ++i)
-		{
-			printf("%d ", data_read[i]);
-		}
-		printf("\r\n");
-	}
-
-	#if 0
 	/*获取I2C总线的数据*/
     dy_bus_t *bus = dy_bus_find("I2C1");
     if (NULL == bus)
@@ -212,7 +171,6 @@ void eeprom_write_read_compare()
 	{
 		printf("write read is not same\r\n");
 	}
-	#endif
 }
 
 /*板子初始化*/

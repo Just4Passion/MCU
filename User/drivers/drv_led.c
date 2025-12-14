@@ -10,20 +10,14 @@
 
 #include "drv_misc_func.h"
 
+#include "drv_led.h"
+
 
 /**********************************************
  * 
  *                  类型定义
  * 
 ***********************************************/
-typedef enum
-{
-    LED_OFF,
-    LED_RED_ON,
-    LED_GREEN_ON,
-    LED_BLUE_ON,
-    LED_WHITE_ON
-}led_ctrl_cmd_t;
 
 typedef struct
 {
@@ -63,7 +57,7 @@ static led_dev_t g_led_dev = {0};
 /**
  * @brief led初始化
  */
-static int led_init(void *dev)
+static int led_init(dy_device_t *dev)
 {
     led_dev_t *led_dev = (led_dev_t*)dev;
     if (NULL == dev)
@@ -108,7 +102,7 @@ static int led_init(void *dev)
 /**
  * @brief led控制
  */
-static int led_control(void *dev, int cmd, void *arg)
+static int led_control(dy_device_t *dev, int cmd, void *arg)
 {
     if (NULL == dev)
     {
@@ -147,6 +141,9 @@ static int led_control(void *dev, int cmd, void *arg)
             GPIO_ResetBits(led_dev->led_cfg.gpio_green_port, led_dev->led_cfg.gpio_green_pin);
             GPIO_ResetBits(led_dev->led_cfg.gpio_blue_port, led_dev->led_cfg.gpio_blue_pin);
             break;
+        default:
+            dy_device_control(dev, cmd, arg);
+			break;
     }
 
     return DY_EOK;
@@ -170,8 +167,9 @@ static device_ops_t led_dev_ops =
 /**
  * @brief led注册到设备管理器中
  */
-int drv_led_register(void)
+int drv_led_init(void)
 {
+    int ret = DY_EOK;
     strncpy(g_led_dev.device.name, "led", sizeof(g_led_dev.device.name) - 1);
     g_led_dev.device.ops = &led_dev_ops;
 
@@ -188,6 +186,8 @@ int drv_led_register(void)
     {
         return DY_ERROR;
     }
+    
+    ret = g_led_dev.device.ops->init(&g_led_dev.device);
 
-    return DY_EOK;
+    return ret;
 }

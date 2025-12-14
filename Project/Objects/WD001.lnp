@@ -52,8 +52,14 @@
 ".\objects\drv_gpio.o"
 ".\objects\drv_key.o"
 ".\objects\drv_misc_func.o"
+".\objects\drv_i2c.o"
+".\objects\drv_eeprom.o"
+".\objects\drv_usart.o"
+".\objects\drv_serial.o"
+".\objects\drv_time.o"
+".\objects\drv_eeprom_tmp.o"
 ".\objects\main.o"
---strict --scatter ".\Objects\WD001.sct"
+--library_type=microlib --nodebug --strict --scatter ".\Objects\WD001.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list ".\Listings\WD001.map" -o .\Objects\WD001.axf

@@ -111,11 +111,11 @@ typedef struct
  * 
 ***********************************************/
 /*事件引擎初始化*/
-void event_engine_init();
+void event_engine_init(void);
 
 /*事件的分发与处理*/
 bool event_publish(event_t *event);     // 把事件放到事件队列中, 等待处理
-bool event_process();                   // 从事件队列中取出事件, 进行处理
+bool event_process(void);                   // 从事件队列中取出事件, 进行处理
 
 /*事件订阅管理*/
 bool event_subscribe(event_type_t event_type, event_handler_t handler);

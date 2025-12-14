@@ -247,8 +247,21 @@ int dy_device_control(dy_device_t *dev, int cmd, void *arg)
     {
         return DY_EINVAL;
     }
+
+    int ret = DY_EOK;
+    switch(cmd)
+    {
+        case DY_DEVICE_CTRL_CMD_GET_FLAG:
+           *((int*)arg) = dev->flag;
+            break;
+        case DY_DEVICE_CTRL_CMD_SET_FLAG:
+            dev->flag |= *((int*)arg);
+            break;
+        default:
+            break;
+    }
     
-    return dev->ops->control(dev, cmd, arg);
+    return ret;
 }
 
 /**

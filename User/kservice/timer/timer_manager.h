@@ -58,8 +58,8 @@ typedef struct
 ***********************************************/
 void timer_manager_init(void);      // 创建一个管理器用来管理定时器
 void timer_manager_tick_handler(void);          // 状态更新, 回调执行都在SysTick中断中执行
-void timer_manager_tick_decrement_handler();    // 在SysTick中断中更新定时器状态为"过期"
-void timer_manager_expired_timer_handler();     // 在main中执行过期定时器的回调, 执行完毕调整定时器状态
+void timer_manager_tick_decrement_handler(void);    // 在SysTick中断中更新定时器状态为"过期"
+void timer_manager_expired_timer_handler(void);     // 在main中执行过期定时器的回调, 执行完毕调整定时器状态
 
 int8_t timer_create(uint32_t period_ms, timer_callback callback, bool auto_reload); // 返回定时器ID, 通过ID可以查找定时器
 bool timer_start(uint8_t timer_id);

@@ -12,19 +12,13 @@
 
 #include "drv_misc_func.h"
 
+#include "drv_key.h"
+
 /**********************************************
  * 
  *                  类型定义
  * 
 ***********************************************/
-typedef enum
-{
-    KEY_GET_STATE,              // 获取当前状态
-    KEY_GET_LONG_PRESS_TIME,    // 获取长按时间
-    KEY_GET_PRESS_TIMESTAMP,    // 获取按下的时间戳
-    KEY_SET_PRESS_TIMESTAMP,    // 设置按下时间戳
-    KEY_SET_RELEASE_TIMESTAMP,  // 设置释放时间戳
-}key_ctrl_cmd_t;
 
 typedef struct
 {
@@ -73,7 +67,7 @@ static key_dev_t g_key_dev2;
 /**
  * @brief 按键初始化
  */
-static int key_init(void *dev)
+static int key_init(dy_device_t *dev)
 {
     key_dev_t *key_dev = (key_dev_t*)dev;
 
@@ -114,7 +108,7 @@ static int key_init(void *dev)
 /**
  * @brief key读取
  */
-static int key_read(void *dev, void *buf, int len)
+static int key_read(dy_device_t *dev, void *buf, unsigned int len)
 {
     key_dev_t *key_dev = (key_dev_t*)dev;
     uint8_t *data = (uint8_t*)buf;
@@ -135,7 +129,7 @@ static int key_read(void *dev, void *buf, int len)
 /**
  * @brief key控制接口
  */
-static int key_control(void *dev, int cmd, void *arg)
+static int key_control(dy_device_t *dev, int cmd, void *arg)
 {
     key_dev_t *key_dev = (key_dev_t*)dev;
     switch (cmd)
@@ -167,7 +161,8 @@ static int key_control(void *dev, int cmd, void *arg)
             key_dev->key_release_timestamp = (uint32_t)(*(uint32_t*)arg);
             break;
         default:
-            break;
+            dy_device_control(dev, cmd, arg);
+			break;
     }
     return DY_EOK;
 }
@@ -185,10 +180,11 @@ static device_ops_t key_dev_ops =
 
 
 /**
- * @brief key注册
+ * @brief 按键注册并初始化
  */
-int drv_key_register()
+int drv_key_init()
 {
+    int ret = DY_EOK;
     /*注册两个键值*/
     /*Key1注册*/
     strcpy(g_key_dev1.device.name, "key1");
@@ -205,6 +201,11 @@ int drv_key_register()
     if (DY_EOK != dy_device_register("key1", &g_key_dev1.device))
     {
         return DY_ERROR;
+    }
+    ret = g_key_dev1.device.ops->init(&g_key_dev1.device);
+    if (DY_EOK != ret)
+    {
+        return ret;
     }
 
     /*Key2注册*/
@@ -223,7 +224,12 @@ int drv_key_register()
     {
         return DY_ERROR;
     }
-
+    ret = g_key_dev2.device.ops->init(&g_key_dev2.device);
+    if (DY_EOK != ret)
+    {
+        return ret;
+    }
+    
     return DY_EOK;
 }
 
@@ -236,7 +242,6 @@ void key1_timer_callback()
     dy_device_t *dev = dy_find_device("key1");
     key_dev_t *key_dev = (key_dev_t *)dev;
 
-    dy_device_t *led_dev = dy_find_device("led");
     if (NULL == key_dev)
     {
         return;

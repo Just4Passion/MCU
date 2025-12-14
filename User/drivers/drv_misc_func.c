@@ -151,19 +151,49 @@ uint32_t drv_gpio_get_pin(uint32_t pin_no)
     return g_gpio_pin_set[pin_no];
 }
 
-uint32_t drv_gpio_get_af_src(uint32_t pin_no)
+uint8_t drv_gpio_get_af_src(uint32_t gpio_pin)
 {
-    if (pin_no > 15)
+    uint8_t i = 0;
+    for (i = 0; i < sizeof(g_gpio_pin_set); ++i)
     {
-        return g_gpio_af_src_set[0];
+        if (gpio_pin == g_gpio_pin_set[i])
+        {
+            return g_gpio_af_src_set[i];
+        }
     }
-    return g_gpio_af_src_set[pin_no];
+    return g_gpio_af_src_set[0];
+}
+
+uint8_t drv_gpio_get_i2c_af(uint32_t i2c_handle)
+{
+    switch(i2c_handle)
+    {
+        case I2C1:
+            return GPIO_AF_I2C1;
+        case I2C2:
+            return GPIO_AF_I2C2;
+        case I2C3:
+            return GPIO_AF_I2C3; 
+        default:
+            return GPIO_AF_I2C1; 
+    }
 }
 
 
-
-
-
+uint8_t drv_gpio_get_usart_af(uint32_t usart_handle)
+{
+    switch(usart_handle)
+    {
+        case USART1:
+            return GPIO_AF_USART1;
+        case USART2:
+            return GPIO_AF_USART2;
+        case USART3:
+            return GPIO_AF_USART3; 
+        default:
+            return GPIO_AF_USART1; 
+    }
+}
 
 
 

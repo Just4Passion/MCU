@@ -54,8 +54,8 @@
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
-          <DebugInformation>1</DebugInformation>
-          <BrowseInformation>1</BrowseInformation>
+          <DebugInformation>0</DebugInformation>
+          <BrowseInformation>0</BrowseInformation>
           <ListingPath>.\Listings\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -81,9 +81,9 @@
             <nStopB2X>0</nStopB2X>
           </BeforeMake>
           <AfterMake>
-            <RunUserProg1>0</RunUserProg1>
+            <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
-            <UserProg1Name></UserProg1Name>
+            <UserProg1Name>cmd /C del /q ".\Objects\*.o" ".\Objects\*.d" ".\Objects\*.crf"</UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
@@ -191,7 +191,7 @@
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>0</useUlib>
+            <useUlib>1</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -745,6 +745,36 @@
               <FileName>drv_misc_func.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\User\drivers\drv_misc_func.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\drivers\drv_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_eeprom.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\drivers\drv_eeprom.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\drivers\drv_usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_serial.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\drivers\drv_serial.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_time.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\drivers\drv_time.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_eeprom_tmp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\drivers\drv_eeprom_tmp.c</FilePath>
             </File>
           </Files>
         </Group>

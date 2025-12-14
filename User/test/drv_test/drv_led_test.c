@@ -71,7 +71,7 @@ void board_init()
 	/*总线完成初始化*/
 
 	/*注册所有硬件*/
-	drv_led_register();
+	drv_led_init();
 	/*所有的硬件完成初始化*/
 	dy_device_foreach(dev_init_callback, NULL);
 }

@@ -5,7 +5,15 @@
 #define DY_ALIGN_SIZE 4
 #define DY_ALIGN(size, align)           (((size) + (align) - 1) & ~((align) - 1))
 
-#define DY_DEVICE_FLAG_STREAM           0x040           // 流模式
+#define DY_DEVICE_FLAG_DEACTIVATE       0x000           // 未初始化
+#define DY_DEVICE_FLAG_ACTIVATED        0x001           // 已激活: 初始化成功
+#define DY_DEVICE_FLAG_REMOVABLE        0x002           // 可移除
+#define DY_DEVICE_FLAG_STANDALONE       0x004           // 独立设备
+
+#define DY_DEVICE_FLAG_RDONLY           0x010           // 只读设备
+#define DY_DEVICE_FLAG_WRONLY           0x020           // 只写设备
+#define DY_DEVICE_FLAG_RDWR             0x030           // 读写设备
+
 #define DY_DEVICE_FLAG_INT_RX           0x100           // 中断接收
 #define DY_DEVICE_FLAG_DMA_RX           0x200           // DMA接收
 #define DY_DEVICE_FLAG_INT_TX           0x400           // 中断发送
@@ -27,6 +35,20 @@ typedef struct device dy_device_t;
 struct bus;
 typedef struct bus dy_bus_t;
 
+/**********************************************
+ * 
+ * 
+ *              错误码定义
+ * 
+ * 
+************************************************/
+typedef enum
+{
+    DY_STORAGE_ERROR = 0x1000,          // 存储相关
+    DY_PLATFORM_ERROR = 0x2000,         // 平台设备相关
+    DY_NETWORK_ERROR = 0x3000,          // 网络相关的
+}dy_err_t;
+
 
 /**********************************************
  * 
@@ -40,7 +62,7 @@ typedef enum
 {
     DY_BUS_TYPE_I2C = 0,              // I2C总线
     DY_BUS_TYPE_SPI,                  // SPI总线
-    DY_BUS_TYPE_UART,                 // UART总线
+    DY_BUS_TYPE_USART,                 // UART总线
     DY_BUS_TYPE_CAN,                  // CAN总线
     DY_BUS_TYPE_USB,                  // USB总线
     DY_BUS_TYPE_CUSTOM                // 自定义总线
@@ -70,18 +92,20 @@ typedef enum
 typedef struct 
 {
     int (*init)(dy_bus_t *bus);              		 	// 总线初始化
+    int (*send)(dy_bus_t *bus, void *buf, unsigned int len);// 总线发送数据
+    int (*recv)(dy_bus_t *bus, void *buf, unsigned int len);// 总线接收数据
     int (*control)(dy_bus_t *bus, int cmd, void *arg); 	// 总线控制, 重启总线
 }dy_bus_ops_t;
 
 
 typedef struct bus
 {
-	char name[32+1];
+	char name[32+4];
     dy_bus_type_t type;             // 总线类型
     dy_bus_state_t state;           // 总线状态
 	dy_bus_ops_t *ops;				// 总线操作
 	int device_count;				// 挂载的设备总数
-	dy_device_t *device_list;		// 挂载的设备
+	struct device *device_list;		// 挂载的设备
     struct bus *next;               // 下一个总线节点
 	void *priv_data;				// 私有数据里面可以放配置, 可以放驱动
 }dy_bus_t;
@@ -164,27 +188,37 @@ int dy_bus_manager_init(void);
  * 
  * 
 ************************************************/
+
+typedef enum
+{
+    DY_DEVICE_CTRL_CMD_NONE = 0,
+    DY_DEVICE_CTRL_CMD_SET_FLAG,
+    DY_DEVICE_CTRL_CMD_GET_FLAG,
+    DY_DEVICE_CTRL_CMD_MAX
+}dy_device_ctl_cmd_t;
+
 // 设备操作接口定义
 typedef struct device_ops {
-    int (*init)(void *dev);              // 设备初始化
-    int (*open)(void *dev);              // 设备打开
-    int (*close)(void *dev);             // 设备关闭
-    int (*read)(void *dev, void *buf, int len);  // 设备读操作
-    int (*write)(void *dev, void *buf, int len); // 设备写操作
-    int (*control)(void *dev, int cmd, void *arg); // 设备控制
-    void (*callback)(void *dev, int event, void *data); // 设备回调函数
+    int (*init)(dy_device_t *dev);              // 设备初始化
+    int (*open)(dy_device_t *dev);              // 设备打开
+    int (*close)(dy_device_t *dev);             // 设备关闭
+    int (*read)(dy_device_t *dev, void *buf, unsigned int len);  // 设备读操作
+    int (*write)(dy_device_t *dev, void *buf, unsigned int len); // 设备写操作
+    int (*control)(dy_device_t *dev, int cmd, void *arg); // 设备控制
+    void (*callback)(dy_device_t *dev, int event, void *data); // 设备回调函数
 }device_ops_t;
 
 
 // 设备结构体定义
 typedef struct device 
 {
-    char name[32 + 1];                   // 设备名称
-    int open_flag;                       // 设备打开标志, 轮询, 中断, DMA等
+    char name[32 + 4];                   // 设备名称
+    int flag;                            // 设备标志: 激活, 轮询, 中断, DMA. 占据不同的标志位
+    int open_flag;                       // 设备打开标志: 打开, 关闭, 只读, 只写, 读写
+    int state;                           // 设备状态: 未初始化, 初始化成功
     device_ops_t *ops;                   // 设备操作接口
     dy_bus_t *bus;                       // 设备所属总线
     struct device *next;                 // 链表指针
-
     /****************************
      * 私有数据, 放在最后, 
      * 申请大于sizeof(struct device)的空间
@@ -245,6 +279,15 @@ int dy_device_get_count(void);
  */
 void dy_device_foreach(void (*callback)(dy_device_t *dev, void *arg), void *arg);
 
+
+/**
+ * @brief 控制设备
+ * @param dev 设备指针
+ * @param cmd 控制命令
+ * @param arg 参数
+ * @return 0成功，-1失败
+ */
+int dy_device_control(dy_device_t *dev, int cmd, void *arg);
 
 /**
  * @brief 初始化设备管理器

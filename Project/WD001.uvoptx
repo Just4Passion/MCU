@@ -1023,8 +1023,20 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\drivers\drv_eeprom_tmp.c</PathWithFileName>
-      <FilenameWithoutPath>drv_eeprom_tmp.c</FilenameWithoutPath>
+      <PathWithFileName>..\User\drivers\drv_spi.c</PathWithFileName>
+      <FilenameWithoutPath>drv_spi.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>6</GroupNumber>
+      <FileNumber>64</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\User\drivers\drv_spi_flash.c</PathWithFileName>
+      <FilenameWithoutPath>drv_spi_flash.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1046,7 +1058,7 @@
     <RteFlg>0</RteFlg>
     <File>
       <GroupNumber>8</GroupNumber>
-      <FileNumber>64</FileNumber>
+      <FileNumber>65</FileNumber>
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>

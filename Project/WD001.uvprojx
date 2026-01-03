@@ -54,7 +54,7 @@
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>0</CreateHexFile>
-          <DebugInformation>0</DebugInformation>
+          <DebugInformation>1</DebugInformation>
           <BrowseInformation>0</BrowseInformation>
           <ListingPath>.\Listings\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
@@ -772,9 +772,14 @@
               <FilePath>..\User\drivers\drv_time.c</FilePath>
             </File>
             <File>
-              <FileName>drv_eeprom_tmp.c</FileName>
+              <FileName>drv_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\drivers\drv_eeprom_tmp.c</FilePath>
+              <FilePath>..\User\drivers\drv_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_spi_flash.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\drivers\drv_spi_flash.c</FilePath>
             </File>
           </Files>
         </Group>

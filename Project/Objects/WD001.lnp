@@ -57,9 +57,10 @@
 ".\objects\drv_usart.o"
 ".\objects\drv_serial.o"
 ".\objects\drv_time.o"
-".\objects\drv_eeprom_tmp.o"
+".\objects\drv_spi.o"
+".\objects\drv_spi_flash.o"
 ".\objects\main.o"
---library_type=microlib --nodebug --strict --scatter ".\Objects\WD001.sct"
+--library_type=microlib --strict --scatter ".\Objects\WD001.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list ".\Listings\WD001.map" -o .\Objects\WD001.axf

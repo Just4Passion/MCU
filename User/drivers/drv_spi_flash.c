@@ -456,6 +456,32 @@ int drv_flash_W25Q128_write(dy_device_t *dev, void *buf, unsigned int len)
  *                          一些控制指令
  * 
  ********************************************************************/
+/**
+ * @brief 读取芯片型号
+ * @param sector_addr: 扇区地址
+ */
+static int drv_flash_W25Q128_ReadDeviceID(dy_device_t *dev, uint8_t buf[3])
+{
+    int ret = 0;
+    dy_bus_t *bus = dev->bus;
+    uint8_t *data = (uint8_t *)buf;
+    uint8_t read_chip_id_cmd = W25Q_JEDEC_DEVICE_ID;
+	ret = bus->ops->control(bus, DY_SPI_CTRL_CMD_CS_LOW, NULL); //拉低片选
+	ret = bus->ops->send(bus, (void*)&read_chip_id_cmd, 1);
+	if (ret != 1)
+	{
+		printf("drv_flash_W25Q128_ReadDeviceID send cmd failed\r\n");
+		return DY_ERROR;
+	}
+	ret = bus->ops->recv(bus, (void*)data, 3);
+	if (ret != 3)
+	{
+		printf("drv_flash_W25Q128_ReadDeviceID recv resp failed\r\n");
+		return DY_ERROR;
+	}
+	ret = bus->ops->control(bus, DY_SPI_CTRL_CMD_CS_HIGH, NULL); //拉高片选
+    return DY_EOK;
+}
 
 /**
  * @brief 芯片擦除: 擦除16MB
@@ -537,6 +563,9 @@ int drv_flash_W25Q128_control(dy_device_t *dev, int cmd, void *arg)
     {
         case W25Q128_SET_MEM_ADDR:
             flash_dev->cfg.mem_addr = *((uint32_t*)arg);
+            break;
+        case W25Q128_READ_CHIP_ID:
+            ret = drv_flash_W25Q128_ReadDeviceID(dev, (uint8_t*)arg);
             break;
         case W25Q128_CHIP_ERASE:
             ret = drv_flash_W25Q128_ChipErase(dev);

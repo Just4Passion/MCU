@@ -163,7 +163,7 @@ void spi_flash_write_read_cmp_test()
 
 void spi_flash_control_test()
 {
-	/*获取I2C总线的数据*/
+	/*获取SPI总线的数据*/
 	dy_device_t *spi_flash = dy_find_device("flash_16MB");
 	if (NULL == spi_flash)
 	{
@@ -171,8 +171,23 @@ void spi_flash_control_test()
 		return;
 	}
 	int32_t ret = 0;
-	
+	uint8_t device_id[3] = {0};
 
+	ret = spi_flash->ops->control(spi_flash, W25Q128_WAKE_UP, NULL);
+	if (ret != DY_EOK)
+	{
+		printf("read chip id failed\r\n");
+		return;
+	}
+	printf("wakeup chip successful\r\n");
+
+	ret = spi_flash->ops->control(spi_flash, W25Q128_READ_CHIP_ID, (void*)device_id);
+	if (ret != DY_EOK)
+	{
+		printf("read chip id failed\r\n");
+		return;
+	}
+	printf("device id: %02x %02x %02x\r\n", device_id[0], device_id[1], device_id[2]);	//返回结果为EF 40 18, 即W25Q128
 }
 
 /*板子初始化*/
@@ -215,8 +230,10 @@ void app_init()
 	//timer_start(timer_id1);
 	uint8_t timer_id2 = timer_create(10, key1_timer_callback, true);
 	timer_start(timer_id2);
-	uint8_t timer_id3 = timer_create(1000, spi_flash_write_read_cmp_test, true);
-	timer_start(timer_id3);
+	//uint8_t timer_id3 = timer_create(1000, spi_flash_write_read_cmp_test, true);
+	//timer_start(timer_id3);
+	uint8_t timer_id4 = timer_create(1000, spi_flash_control_test, true);
+	timer_start(timer_id4);
 
 	/*订阅事件*/
 	event_subscribe(EVENT_BUTTON_PRESS, key_event_handler);

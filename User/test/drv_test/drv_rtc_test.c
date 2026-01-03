@@ -35,20 +35,7 @@ void systick_init(uint32_t ticks_persecond)
 }
 
 /***************************************************************************
- * 			SPI Flash W25Q128: 16MB
- * 
- * 			测试功能实现了
- * 					向指定地址写入超过一个扇区的数据, 然后再从该字节读取写入的数据
- * 					将两个数据进行比较, 一致, 则执行通过
- * 
- * STM32F407ZG: 192(128 + 64)KB		512KB
- * RO size: 11.72KB - Code + RO Data
- * RW size: 15.06KB
- * ROM size: 12.00KB (Code + RO Data(初始化了, 且只读) + RW Data(初始化了, 但是可修改, ROM需要保存初始化值))
- * Stack size: 0x2000 = 8KB, 
- * Max Stack Usage = 4034 + Unknown(编译器内嵌函数)
- * 	drv_flash_W25Q128_write ⇒ drv_flash_W25Q128_single_sector_write ⇒ drv_flash_W25Q128_PageWrite ⇒ drv_flash_W25Q128_WriteEnable ⇒ drv_flash_W25Q128_send_data ⇒ __2printf
- * 	扇区的"读"->"修改"->"写", 需要申请一个扇区(4KB)的内存空间, 我把这个空间放在栈中
+ * 			RTC测试, 使用内部的LSI晶振
  * 
  **************************************************************************/
 
@@ -102,95 +89,6 @@ void key_event_handler(event_t *event)
 		default:
 			break;
 	}
-}
-
-/*使用全局变量, 使用栈空间的话, 会导致栈溢出*/
-uint8_t g_data_write[6 * 1024] = {0};
-uint8_t g_data_read[6 * 1024] = {0};
-void spi_flash_write_read_cmp_test()
-{
-	/*获取SPI总线的数据*/
-	dy_device_t *spi_flash = dy_find_device("flash_16MB");
-	if (NULL == spi_flash)
-	{
-		printf("spi_flash not found\r\n");
-		return;
-	}
-
-	int32_t ret = 0;
-	/*写入内存地址*/
-	static uint32_t mem_addr = 0;
-
-	for (int i = 0; i < 6 * 1024; ++i)
-	{
-		g_data_write[i] = i;
-	}
-
-	spi_flash->ops->control(spi_flash, W25Q128_SET_MEM_ADDR, (void*)&mem_addr);
-	ret = spi_flash->ops->write(spi_flash, g_data_write, sizeof(g_data_write));
-	if (ret != sizeof(g_data_write))
-	{
-		printf("spi flash write failed\r\n");
-		return;
-	}
-	/*从0地址读取*/
-	spi_flash->ops->control(spi_flash, W25Q128_SET_MEM_ADDR, &mem_addr);
-	ret = spi_flash->ops->read(spi_flash, g_data_read, sizeof(g_data_read));
-	if (ret != sizeof(g_data_read))
-	{
-		printf("spi flash read failed\r\n");
-		return;
-	}
-	/*比较写入和读取的结果*/
-	if (0 == memcmp(g_data_write, g_data_read, 6 * 1024))
-	{
-		printf("data is OK\r\n");
-	}
-	else
-	{
-		printf("data is error\r\n");
-		uint8_t i = 0;
-		printf("read info: ");
-		for (i = 0; i < 16; ++i)
-		{
-			printf("%d ", g_data_read[i]);
-		}
-		printf("\r\n");
-	}
-	mem_addr += 255;
-	if (mem_addr > ((4 * 1024) + 5))
-	{
-		mem_addr = 0;
-	}
-}
-
-void spi_flash_control_test()
-{
-	/*获取SPI总线的数据*/
-	dy_device_t *spi_flash = dy_find_device("flash_16MB");
-	if (NULL == spi_flash)
-	{
-		printf("spi_flash not found\r\n");
-		return;
-	}
-	int32_t ret = 0;
-	uint8_t device_id[3] = {0};
-
-	ret = spi_flash->ops->control(spi_flash, W25Q128_WAKE_UP, NULL);
-	if (ret != DY_EOK)
-	{
-		printf("read chip id failed\r\n");
-		return;
-	}
-	printf("wakeup chip successful\r\n");
-
-	ret = spi_flash->ops->control(spi_flash, W25Q128_READ_CHIP_ID, (void*)device_id);
-	if (ret != DY_EOK)
-	{
-		printf("read chip id failed\r\n");
-		return;
-	}
-	printf("device id: %02x %02x %02x\r\n", device_id[0], device_id[1], device_id[2]);	//返回结果为EF 40 18, 即W25Q128
 }
 
 void rtc_time_test()
@@ -262,8 +160,8 @@ void board_init()
 	//ret = drv_eeprom_init();
 
 	/*SPI总线, 及其挂载设备初始化*/
-	drv_spi_hw_init();
-	drv_spi_flash_init();
+	//drv_spi_hw_init();
+	//drv_spi_flash_init();
 
 	/*注册所有硬件*/
 	drv_led_init();

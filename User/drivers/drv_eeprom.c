@@ -226,7 +226,6 @@ static int eeprom_write_pages(dy_device_t *dev, void *buf, unsigned int len)
         return len;
     }
 
-    bool send_stop = true;
     uint32_t i = 0;
     int ret = 0;
     uint8_t retry_count = 0;

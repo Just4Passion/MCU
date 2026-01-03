@@ -205,8 +205,7 @@ static int drv_stm32_i2c_bus_master_read(dy_bus_t *bus, uint32_t addr, uint8_t *
                 /*超时了, 没有数据了, 直接退出*/
                 I2C_AcknowledgeConfig(cfg->i2c_periph, ENABLE);
                 /*发送结束信号*/
-                //if (i2c_bus->send_stop)
-                    I2C_GenerateSTOP(cfg->i2c_periph, ENABLE);
+                I2C_GenerateSTOP(cfg->i2c_periph, ENABLE);
                 return index;
             }
         }
@@ -217,8 +216,7 @@ static int drv_stm32_i2c_bus_master_read(dy_bus_t *bus, uint32_t addr, uint8_t *
         if (index == (len - 1))
         {
             /*发送结束信号*/
-            //if (i2c_bus->send_stop)
-                I2C_GenerateSTOP(cfg->i2c_periph, ENABLE);
+            I2C_GenerateSTOP(cfg->i2c_periph, ENABLE);
         }
         #endif
     }

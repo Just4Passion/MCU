@@ -75,6 +75,7 @@ typedef struct
     flash_W25Q128_cfg_t cfg;
 
     uint32_t write_timeout_ms;  // 写超时时间
+    uint32_t chip_erase_timeout_ms; // 芯片整块擦除超时时间
     uint8_t max_retry_count;    // 最大重试次数
 }flash_W25Q128_dev_t;
 
@@ -240,6 +241,47 @@ static int drv_flash_W25Q128_WaitForWriteEnd(dy_device_t *dev)
 }
 
 /**
+ * @brief 等待擦除完毕
+ * @note 读取寄存器的状态, 判断寄存器值: 第一位标志是否被置位 
+ */
+static int drv_flash_W25Q128_WaitForEraseEnd(dy_device_t *dev, uint32_t timeout_ms)
+{
+    dy_bus_t *bus = dev->bus;
+    uint8_t read_status_reg_cmd = W25Q_READ_STATUS_REG;
+    uint8_t reg_value = 0;
+    int ret = 0;
+    uint32_t start = drv_time_get_sys_tick();
+    /*选中*/
+    ret = bus->ops->control(bus, DY_SPI_CTRL_CMD_CS_LOW, NULL); //拉低片选
+    /*发送读寄存器指令*/
+    ret = bus->ops->send(bus, (void*)&read_status_reg_cmd, 1);
+    if (ret != 1)
+    {
+        printf("drv_flash_W25Q128_WaitForWriteEnd ret = %d\r\n", ret);
+        return DY_ERROR;
+    }
+    /*读取寄存器内容*/
+    do
+    {
+        ret = bus->ops->recv(bus, (void*)&reg_value, 1); //读取寄存器内容
+        if (ret != 1)
+        {
+            /*读取失败了, 直接返回错误*/
+            printf("drv_flash_W25Q128_WaitForWriteEnd recv ret = %d\r\n", ret);
+            return DY_ERROR;
+        }
+        if ((drv_time_get_sys_tick() - start) > timeout_ms)
+        {
+            printf("drv_flash_W25Q128_WaitForWriteEnd timeout\r\n");
+            return DY_ETMOUT;
+        }
+    }while(reg_value & W25Q_STATUS_REG_BUSY);
+    /*片选拉高*/
+    ret = bus->ops->control(bus, DY_SPI_CTRL_CMD_CS_HIGH, NULL); //拉高片选
+    return DY_EOK;
+}
+
+/**
  * @brief 扇区擦除
  * @param sector_addr: 扇区地址
  */
@@ -369,7 +411,6 @@ static int drv_flash_W25Q128_single_sector_write(dy_device_t *dev, uint32_t sect
         printf("drv_flash_W25Q128_single_sector_write sector erase failed\r\n");
         return DY_ERROR;
     }
-
     /*开始按页写入*/
     uint32_t bytes_written = 0;
     while (bytes_written < W25Q_SECTOR_SIZE)
@@ -421,7 +462,7 @@ int drv_flash_W25Q128_write(dy_device_t *dev, void *buf, unsigned int len)
         return 0;
     }
 
-    printf("=====================begin addr = 0x%x=====================\r\n", write_addr);
+    printf("=====================begin addr = 0x%x, len = %d=====================\r\n", write_addr, len);
     /*循环处理*/
     while (bytes_written < len)
     {
@@ -435,8 +476,8 @@ int drv_flash_W25Q128_write(dy_device_t *dev, void *buf, unsigned int len)
             bytes_to_write_this_sector = remaining_in_sector;
         }
 
-        printf("cur_sector_addr = 0x%x, offset_in_sector = %d, bytes_to_write_this_sector = %d\r\n",
-            cur_sector_addr, offset_in_sector, bytes_to_write_this_sector);
+        //printf("cur_sector_addr = 0x%x, offset_in_sector = %d, bytes_to_write_this_sector = %d\r\n",
+        //    cur_sector_addr, offset_in_sector, bytes_to_write_this_sector);
         /*向扇区写入数据*/
         ret = drv_flash_W25Q128_single_sector_write(dev, cur_sector_addr, offset_in_sector, 
             &data[bytes_written], bytes_to_write_this_sector);
@@ -508,7 +549,7 @@ static int drv_flash_W25Q128_ChipErase(dy_device_t *dev)
     }
 
     /*等待擦除完毕*/
-    ret = drv_flash_W25Q128_WaitForWriteEnd(dev);
+    ret = drv_flash_W25Q128_WaitForEraseEnd(dev, 50 * 1000);
     if (ret != DY_EOK)
     {
         printf("drv_flash_W25Q128_SectorErase sector erase failed\r\n");
@@ -613,6 +654,7 @@ int drv_spi_flash_init()
 
     //g_flash_W25Q128_dev.cfg.mem_capacity = 16 * 4 * 1024;   // 一个块64KB, 16个扇区; 一个扇区4KB, 16个页; 一页256字节
     g_flash_W25Q128_dev.write_timeout_ms = 5000;
+    g_flash_W25Q128_dev.chip_erase_timeout_ms = 10 * 5000;
     g_flash_W25Q128_dev.max_retry_count = 1;
     /*注册设备*/
     if (DY_EOK != dy_device_register("flash_16MB", &g_flash_W25Q128_dev.device))

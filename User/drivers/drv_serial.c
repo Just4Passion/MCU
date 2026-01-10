@@ -13,6 +13,13 @@
 #include "drv_usart.h"
 #include "drv_serial.h"
 
+/******************************************************
+ * 
+ *                      类型
+ * 
+ *******************************************************/
+#define SERIAL_PERIPH                   (USART1)
+#define SERIAL_PERIPH_FLAG_TXE          (USART_FLAG_TXE)
 
 /******************************************************
  * 
@@ -123,11 +130,15 @@ int drv_serial_init()
 /*有些地方用到了printf, 所以serial的初始化要放在前面*/
 int fputc(int ch, FILE *f)
 {
+    /*无法确保崩溃的时候不会污染此处的数据*/
+    #if 0
     int flag = DY_DEVICE_FLAG_DEACTIVATE;
     /*获取serial, 检查是否初始化成功*/
     dy_device_t *serial = dy_find_device("serial");
     if (NULL == serial)
     {
+        USART_SendData(SERIAL_PERIPH, ch);
+        while(USART_GetFlagStatus(SERIAL_PERIPH, SERIAL_PERIPH_FLAG_TXE) == RESET);
         return ch;
     }
     /*获取设备标志*/
@@ -137,6 +148,10 @@ int fputc(int ch, FILE *f)
         /*初始化成功, 发送字符*/
         serial->ops->write(serial, &ch, 1); // 发送一个字符
     }
+    #endif
+    /*直接使用硬件外设, 避免进入HardFault的时候无法使用*/
+    USART_SendData(SERIAL_PERIPH, ch);
+    while(USART_GetFlagStatus(SERIAL_PERIPH, SERIAL_PERIPH_FLAG_TXE) == RESET);
     return ch;
 }
 

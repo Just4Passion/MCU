@@ -341,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F40_41xxx,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Libraries\CMSIS\Core;..\Libraries\Board\STM32\STM32407_startup\include;..\Libraries\Board\STM32\STM32407_std_periph\inc;..\User\config;..\User\kservice;..\User\kservice\bus;..\User\kservice\dev;..\User\kservice\component;..\User\kservice\timer;..\User\kservice\event;..\User\drivers;..\User\middleware;..\User\app</IncludePath>
+              <IncludePath>..\Libraries\CMSIS\Core;..\Libraries\Board\STM32\STM32407_startup\include;..\Libraries\Board\STM32\STM32407_std_periph\inc;..\User\config;..\User\kservice;..\User\kservice\bus;..\User\kservice\dev;..\User\kservice\component;..\User\kservice\timer;..\User\kservice\event;..\User\drivers;..\User\middleware;..\User\middleware\fs\fat;..\User\app</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -942,7 +942,7 @@
                   <RVCTZI>0</RVCTZI>
                   <RVCTOtherData>0</RVCTOtherData>
                   <ModuleSelection>0</ModuleSelection>
-                  <IncludeInBuild>0</IncludeInBuild>
+                  <IncludeInBuild>1</IncludeInBuild>
                   <AlwaysBuild>2</AlwaysBuild>
                   <GenerateAssemblyFile>2</GenerateAssemblyFile>
                   <AssembleAssemblyFile>2</AssembleAssemblyFile>

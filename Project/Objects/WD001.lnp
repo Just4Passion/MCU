@@ -62,6 +62,7 @@
 ".\objects\drv_rtc.o"
 ".\objects\diskio.o"
 ".\objects\ff.o"
+".\objects\ff_app.o"
 ".\objects\ffsystem.o"
 ".\objects\ffunicode.o"
 ".\objects\main.o"

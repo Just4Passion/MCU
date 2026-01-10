@@ -2,9 +2,13 @@
 #ifndef __KSERVICE_H__
 #define __KSERVICE_H__
 
+#include <stdint.h>
+#include <stddef.h>
+
 #define DY_ALIGN_SIZE 4
 #define DY_ALIGN(size, align)           (((size) + (align) - 1) & ~((align) - 1))
 
+/*设备标志*/
 #define DY_DEVICE_FLAG_DEACTIVATE       0x000           // 未初始化
 #define DY_DEVICE_FLAG_ACTIVATED        0x001           // 已激活: 初始化成功
 #define DY_DEVICE_FLAG_REMOVABLE        0x002           // 可移除
@@ -19,6 +23,8 @@
 #define DY_DEVICE_FLAG_INT_TX           0x400           // 中断发送
 #define DY_DEVICE_FLAG_DMA_TX           0x800           // DMA发送
 
+
+/*系统错误码*/
 #define DY_EBUSNOINIT                  (-8)             // 总线尚未初始化
 #define DY_EEXIST                      (-7)             // 对象已存在
 #define DY_EBUSY                       (-6)             // 忙, 资源不可操作
@@ -28,6 +34,7 @@
 #define DY_ENOMEM                      (-2)             // 内存不足
 #define DY_ERROR                       (-1)             // 通用或未知错误
 #define DY_EOK                          0               // ok  
+
 
 struct device;
 typedef struct device dy_device_t;
@@ -57,7 +64,7 @@ typedef enum
  * 
  * 
 ************************************************/
-// 总线类型定义
+/*总线类型定义*/
 typedef enum 
 {
     DY_BUS_TYPE_I2C = 0,              // I2C总线
@@ -294,6 +301,86 @@ int dy_device_control(dy_device_t *dev, int cmd, void *arg);
  * @return 0成功，-1失败
  */
 int dy_device_manager_init(void);
+
+
+/**********************************************
+ * 
+ * 
+ *              虚拟文件系统相关定义操作
+ * 
+ * 
+************************************************/
+
+/*错误码定义*/
+#define VFS_OK                          0
+#define VFS_ERR                         -1
+#define VFS_ERR_NO_FILE                 -2
+#define VFS_ERR_NO_PATH                 -3
+#define VFS_ERR_INVALID                 -4
+#define VFS_ERR_ACCESS                  -5
+
+/*文件打开模式*/
+#define VFS_MODE_READ                   0x01        //读. 文件必须存在
+#define VFS_MODE_WRITE                  0x02        //写. 文件必须存在
+#define VFS_MODE_OPEN_EXIST             0x00        //打开已存在的文件
+#define VFS_MODE_CREATE_NEW             0x04        //创建一个新文件. 文件已经存在则失败
+#define VFS_MODE_CREATE_ALWAYS          0x08        //创建一个新文件. 文件已经存在则覆盖
+#define VFS_MODE_APPEND                 0x10        //追加. 存在则打开, 并在末尾追加; 不存在则创建
+
+/*文件属性*/
+#define VFS_ATTR_READONLY               0x01        //只读
+#define VFS_ATTR_HIDDEN                 0x02        //隐藏
+#define VFS_ATTR_SYSTEM                 0x04        //系统文件属性
+#define VFS_ATTR_DIRECTORY              0x10        //目录属性
+#define VFS_ATTR_ARCHIVE                0x20        //归档属性. 表示文件已被修改, 需要备份
+
+
+/*文件信息*/
+typedef struct 
+{
+    uint32_t size;      //文件大小
+    uint16_t date;      //最后修改日期
+    uint16_t time;      //最后修改时间
+    uint8_t attr;       //文件属性
+    char name[256];     //文件名
+}vfs_file_info_t;
+
+/*目录句柄*/
+typedef void* vfs_dir_t;
+
+/*文件句柄*/
+typedef void* vfs_file_t;
+
+/*挂载点信息*/
+typedef struct 
+{
+    char mount_point[32];   //挂载路径: 这个不是逻辑驱动名称吗
+    void *fs_data;          //文件系统私有数据
+}vfs_mount_t;
+
+
+/*虚拟文件系统操作函数表*/
+typedef struct 
+{
+    /*文件操作*/
+    int (*open)(vfs_file_t *file, const char *path, uint8_t mode);
+    int (*close)(vfs_file_t *file);
+    int (*read)(vfs_file_t *file, void *buf, unsigned int len);
+    int (*write)(vfs_file_t *file, const void *buf, unsigned int len);
+    int (*seek)(vfs_file_t *file, int offset);
+    int (*tell)(vfs_file_t *file, unsigned int *pos);
+
+    /*目录操作*/
+
+
+    /*文件系统操作*/
+
+
+    /*磁盘操作*/
+
+    /*时间戳*/
+    
+}vfs_ops_t;
 
 #endif
 

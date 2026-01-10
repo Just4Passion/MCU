@@ -123,7 +123,6 @@ static void rtc_get_date_time(dy_device_t *dev, rtc_date_time *date_time)
     RTC_GetDate(RTC_Format_BIN, &stRTCDate);
 
     /*时间*/
-    printf("======== stRTCTime.RTC_H12 = 0x%x\r\n", stRTCTime.RTC_H12);
     date_time->hours = stRTCTime.RTC_Hours;
     date_time->minutes = stRTCTime.RTC_Minutes;
     date_time->seconds = stRTCTime.RTC_Seconds;

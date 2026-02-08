@@ -786,6 +786,21 @@
               <FileType>1</FileType>
               <FilePath>..\User\drivers\drv_rtc.c</FilePath>
             </File>
+            <File>
+              <FileName>drv_watchdog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\drivers\drv_watchdog.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\drivers\drv_timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_dac.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\drivers\drv_dac.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

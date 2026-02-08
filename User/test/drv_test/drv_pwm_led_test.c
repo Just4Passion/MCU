@@ -1,7 +1,6 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <math.h>
 
 #include "stm32f4xx.h"
 #include "stm32f4xx_conf.h"
@@ -40,6 +39,24 @@ void systick_init(uint32_t ticks_persecond)
 {
 	SysTick_Config((SystemCoreClock / ticks_persecond));	// core_cm4.h, STATIC INLINE
 }
+
+/***************************************************************************
+ * 			SPI Flash W25Q128: 16MB
+ * 
+ * 			测试功能实现了
+ * 					向指定地址写入超过一个扇区的数据, 然后再从该字节读取写入的数据
+ * 					将两个数据进行比较, 一致, 则执行通过
+ * 
+ * STM32F407ZG: 192(128 + 64)KB		512KB
+ * RO size: 11.72KB - Code + RO Data
+ * RW size: 15.06KB
+ * ROM size: 12.00KB (Code + RO Data(初始化了, 且只读) + RW Data(初始化了, 但是可修改, ROM需要保存初始化值))
+ * Stack size: 0x2000 = 8KB, 
+ * Max Stack Usage = 4034 + Unknown(编译器内嵌函数)
+ * 	drv_flash_W25Q128_write ⇒ drv_flash_W25Q128_single_sector_write ⇒ drv_flash_W25Q128_PageWrite ⇒ drv_flash_W25Q128_WriteEnable ⇒ drv_flash_W25Q128_send_data ⇒ __2printf
+ * 	扇区的"读"->"修改"->"写", 需要申请一个扇区(4KB)的内存空间, 我把这个空间放在栈中
+ * 
+ **************************************************************************/
 
 void led_blink_per_second()
 {
@@ -142,68 +159,6 @@ void feed_iwdg()
 	}
 }
 
-void single_color_led()
-{
-	/*************************************
-	 * 呼吸灯
-	 * 		基本配置
-	 * 			PWM波: 周期是100Hz(1s输出100个PWM波), 占空比0-100可调
-	 * 			呼吸频率: 占空比完成一次0->100->0的调节所需的时间
-	 *		实现方法
-	 *			线性调节: 0->100->0. 定时任务10ms, 执行400+30次任务完成一次呼吸. 即呼吸频率是4.3s
-	 *			正弦调节: 0->100->0. 定时任务10ms, 执行500次任务完成一次呼吸. 即呼吸频率是5s
-	 *			符合人眼感知的伽马校正或指数曲线: 0->100->0. 定时任务10ms, 执行500次任务完成一次呼吸. 即呼吸频率是5s
-	 **************************************/
-	dy_device_t *timer10 = dy_find_device("timer10");
-	if (NULL == timer10)
-	{
-		return;
-	}
-	#if 0		//线性 - 调整速率为4/6分的情况下存在顿挫感; 不调整亮度保持时间太长
-	static uint32_t duty = 0;
-	static int8_t dir = 1;
-
-	//duty += dir * 1;
-	if (duty >= 1000) { dir = -1; }
-	if (duty <= 0) { dir = 1; }
-	
-	if (duty <= 400) {
-		duty += dir * 1;
-	} else{
-		duty += dir * 20;
-	}
-
-	timer10->ops->control(timer10, OCTIMER_SET_PULSE, &duty);
-	#endif
-
-	#if 0		//正弦 - 感知上亮度保持时间太长
-	static uint32_t counter = 0;
-    static const uint32_t breath_cycle = 500; // 呼吸周期（毫秒）
-    
-	// 使用正弦函数生成平滑的亮度变化
-    float radian = (2 * 3.14159 * counter) / breath_cycle;
-    float sine_value = (sin(radian) + 1.0) / 2.0; // 0到1之间
-    
-    uint32_t duty = (uint32_t)(sine_value * 1000);
-    counter = (counter + 1) % breath_cycle;
-    
-    timer10->ops->control(timer10, OCTIMER_SET_PULSE, &duty);
-	#endif
-
-	#if 1		//指数 - 效果奇好
-	static uint32_t counter = 0;
-    static const uint32_t breath_cycle = 500; // 呼吸周期（毫秒）
-
-	float normalized = (float)counter / breath_cycle;
-	float brightness = pow(sin(normalized * 3.14159), 2.2); // 伽马校正2.2
-	
-	uint32_t duty = (uint32_t)(brightness * 1000); 			//
-	counter = (counter + 1) % breath_cycle;
-    
-    timer10->ops->control(timer10, OCTIMER_SET_PULSE, &duty);
-	#endif
-}
-
 /*全彩色LED*/
 void full_colors_led()
 {
@@ -285,7 +240,6 @@ void board_init()
 	/*启用基本定时器6*/
 	//drv_base_timer_init();
 	drv_oc_timer_init();
-	drv_ic_timer_init();
 
 	/*注册所有硬件*/
 	//drv_led_init();
@@ -300,7 +254,7 @@ void board_init()
     
     printf("APB1: %lu\n", clocks.PCLK1_Frequency);
     printf("APB2: %lu\n", clocks.PCLK2_Frequency);
-	printf("systemclock = %u\r\n", SystemCoreClock);
+	printf("===============================systemclock = %u\r\n", SystemCoreClock);
 }
 
 
@@ -320,6 +274,8 @@ void app_init()
 	timer_start(timer_id2);
 	uint8_t timer_id7 = timer_create(2000, feed_iwdg, true);
 	timer_start(timer_id7);
+	uint8_t timer_id8 = timer_create(1000, full_colors_led, true);
+	timer_start(timer_id8);
 
 	/*订阅事件*/
 	event_subscribe(EVENT_BUTTON_PRESS, key_event_handler);

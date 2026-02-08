@@ -285,7 +285,6 @@ void board_init()
 	/*启用基本定时器6*/
 	//drv_base_timer_init();
 	drv_oc_timer_init();
-	drv_ic_timer_init();
 
 	/*注册所有硬件*/
 	//drv_led_init();
@@ -300,7 +299,7 @@ void board_init()
     
     printf("APB1: %lu\n", clocks.PCLK1_Frequency);
     printf("APB2: %lu\n", clocks.PCLK2_Frequency);
-	printf("systemclock = %u\r\n", SystemCoreClock);
+	printf("===============================systemclock = %u\r\n", SystemCoreClock);
 }
 
 
@@ -320,6 +319,10 @@ void app_init()
 	timer_start(timer_id2);
 	uint8_t timer_id7 = timer_create(2000, feed_iwdg, true);
 	timer_start(timer_id7);
+	//uint8_t timer_id8 = timer_create(1000, full_colors_led, true);
+	//timer_start(timer_id8);
+	uint8_t timer_id9 = timer_create(10, single_color_led, true);
+	timer_start(timer_id9);
 
 	/*订阅事件*/
 	event_subscribe(EVENT_BUTTON_PRESS, key_event_handler);
@@ -342,5 +345,3 @@ int main()
 	}
 	return 0;
 }
-
-

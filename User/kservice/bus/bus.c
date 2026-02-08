@@ -106,7 +106,8 @@ int dy_bus_attach_device(dy_bus_t *bus, dy_device_t *dev)
     }
     
     dev->bus = bus;
-    //dev->next = NULL;//bus->device_list;
+    /*赋值导致device.c中的设备链断开, 先屏蔽, 后续处理*/
+    //dev->next = bus->device_list;
     //bus->device_list = dev;
     //bus->device_count++;
     return DY_EOK;

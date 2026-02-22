@@ -1,0 +1,216 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.43.1.0
+Copyright (C) 2025 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: WorkerDay Day, WorkerDay, LIC=BPPBL-JNAKJ-EK0B9-HT36K-QL62Z-JRCWQ
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Community  Version: 5.43.0.0
+Toolchain Path:  C:\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin
+C Compiler:      Armcc.exe V5.06 update 7 (build 960)
+Assembler:       Armasm.exe V5.06 update 7 (build 960)
+Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
+Library Manager: ArmAr.exe V5.06 update 7 (build 960)
+Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
+CPU DLL:         SARMCM3.DLL V5.43.0.0
+Dialog DLL:      DCM.DLL V1.17.5.0
+Target DLL:      UL2CM3.DLL V1.164.16.0
+Dialog DLL:      TCM.DLL V1.56.6.0
+ 
+<h2>Project:</h2>
+D:\SelfProject\GitHub\Keil\GitHub_MCU\MCU\MCU\Project\gd32f407_freertos.uvprojx
+Project File Date:  02/22/2026
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin'
+Build target 'gd32407_freertos'
+compiling main.c...
+..\User\main.c(25): warning:  #223-D: function "debug_deal" declared implicitly
+  		debug_deal();
+..\User\main.c(35): warning:  #223-D: function "serial_recv_cmd_deal" declared implicitly
+  		serial_recv_cmd_deal();
+..\User\main.c(60): warning:  #223-D: function "xAreSemaphoreTasksStillRunning" declared implicitly
+          if (xAreSemaphoreTasksStillRunning() != pdTRUE)
+..\User\main.c(77): warning:  #223-D: function "drv_rtc_init" declared implicitly
+  	drv_rtc_init(&date_time);
+..\User\main.c(81): warning:  #223-D: function "drv_rtc_get_time" declared implicitly
+  		drv_rtc_get_time(&date_time);
+..\User\main.c(84): warning:  #225-D: the format string ends before this argument
+  			date_time.hour, date_time.minute, date_time.second);
+..\User\main.c(104): warning:  #223-D: function "vUARTCommandConsoleStart" declared implicitly
+  		vUARTCommandConsoleStart(configMINIMAL_STACK_SIZE * 3, (tskIDLE_PRIORITY + 1));
+..\User\main.c(93): warning:  #177-D: variable "xTCBDebugDeal"  was declared but never referenced
+  	TaskHandle_t xTCBDebugDeal;
+..\User\main.c: 8 warnings, 0 errors
+compiling rtos_cli.c...
+compiling recursive_mutex.c...
+..\User\task_notify\recursive_mutex.c(96): warning:  #225-D: the format string ends before this argument
+              printf("OS error, recursive mutex Give test failed\r\n", ux);
+..\User\task_notify\recursive_mutex.c(119): warning:  #225-D: the format string ends before this argument
+              printf("OS error, recursive mutex Take test failed\r\n", ux);
+..\User\task_notify\recursive_mutex.c: 2 warnings, 0 errors
+compiling debug_entry.c...
+..\User\debug\debug_entry.c(82): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+      if(strcmp(cmd, "help") == 0)
+..\User\debug\debug_entry.c(89): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+      else if(strcmp(cmd, "reboot") == 0)
+..\User\debug\debug_entry.c(65): warning:  #177-D: function "debug_set_state"  was declared but never referenced
+  static void debug_set_state(DEBUG_STATE state)
+..\User\debug\debug_entry.c: 3 warnings, 0 errors
+compiling task_monitor.c...
+compiling me_rtos_cli.c...
+compiling task_notify.c...
+..\User\task_notify\task_notify.c(37): warning:  #550-D: variable "xErrorStatus"  was set but never used
+  static BaseType_t xErrorStatus = pdPASS;
+..\User\task_notify\task_notify.c: 1 warning, 0 errors
+compiling mutex_count_semtest.c...
+..\User\task_notify\mutex_count_semtest.c(65): warning:  #177-D: function "vInterruptMutexMasterTask"  was declared but never referenced
+  static void vInterruptMutexMasterTask(void * pvParameters)
+..\User\task_notify\mutex_count_semtest.c(142): warning:  #177-D: function "vInterruptCountingSemaphoreTask"  was declared but never referenced
+  static void vInterruptCountingSemaphoreTask(void * pvParameters)
+..\User\task_notify\mutex_count_semtest.c: 2 warnings, 0 errors
+compiling md_test.c...
+..\User\md_test.c(607): warning:  #1-D: last line of file ends without a newline
+   
+..\User\md_test.c: 1 warning, 0 errors
+compiling rtos_cli_example.c...
+..\User\rtos_cli\rtos_cli_example.c(564): warning:  #1295-D: Deprecated declaration cmd_get_out_buffer - give arg types
+  extern char *cmd_get_out_buffer();
+..\User\rtos_cli\rtos_cli_example.c(581): warning:  #167-D: argument of type "signed char *" is incompatible with parameter of type "char *"
+          while(serial_get_char(&cRxedChar, portMAX_DELAY) != pdPASS)
+..\User\rtos_cli\rtos_cli_example.c(604): warning:  #223-D: function "cmd_process" declared implicitly
+                      xReturned = cmd_process(cInputString, pcOutputString, 1024);
+..\User\rtos_cli\rtos_cli_example.c(42): warning:  #177-D: function "prvUARTCommandConsoleTask"  was declared but never referenced
+  static void prvUARTCommandConsoleTask( void * pvParameters );
+..\User\rtos_cli\rtos_cli_example.c(61): warning:  #177-D: variable "xPort"  was declared but never referenced
+  static xComPortHandle xPort = 0;
+..\User\rtos_cli\rtos_cli_example.c: 5 warnings, 0 errors
+compiling timer_jitter.c...
+compiling serial.c...
+..\User\debug\serial.c(123): warning:  #69-D: integer conversion resulted in truncation
+                  serial_put_char(DEBUG_USART, cChar);
+..\User\debug\serial.c(124): warning:  #69-D: integer conversion resulted in truncation
+                  serial_put_char(DEBUG_USART, ' ');
+..\User\debug\serial.c(125): warning:  #69-D: integer conversion resulted in truncation
+                  serial_put_char(DEBUG_USART, cChar);
+..\User\debug\serial.c(154): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "uint8_t *"
+                  debug_parse_cmd(sCmdBuffer, cIndex);
+..\User\debug\serial.c(208): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+      if(strcmp(cmd, "help") == 0)
+..\User\debug\serial.c(215): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+      else if(strcmp(cmd, "reboot") == 0)
+..\User\debug\serial.c: 6 warnings, 0 errors
+compiling timer_task.c...
+..\User\timer\timer_task.c(185): warning:  #223-D: function "vTimerListInfo" declared implicitly
+      vTimerListInfo(pcWriteBuffer + strlen(pcHeader), xWriteBufferLen - strlen(pcHeader));
+..\User\timer\timer_task.c(56): warning:  #177-D: variable "xOneShotTimer"  was declared but never referenced
+  static TimerHandle_t xOneShotTimer = NULL;
+..\User\timer\timer_task.c(57): warning:  #177-D: variable "ucOneShotTimerCounter"  was declared but never referenced
+  static uint8_t ucOneShotTimerCounter = ( uint8_t ) 0;
+..\User\timer\timer_task.c: 3 warnings, 0 errors
+compiling binary_semtest.c...
+compiling task_concurrent_access_queue.c...
+..\User\task_control\task_concurrent_access_queue.c(118): warning:  #1295-D: Deprecated declaration vInitialiseTimerForIntQueueTest - give arg types
+   static void vInitialiseTimerForIntQueueTest();
+..\User\task_control\task_concurrent_access_queue.c(248): warning:  #223-D: function "memset" declared implicitly
+                  memset(ucNormallyEmptyReceivedValues, 0x00, sizeof(ucNormallyEmptyReceivedValues));
+..\User\task_control\task_concurrent_access_queue.c(169): warning:  #177-D: variable "uxErrorCount1"  was declared but never referenced
+      UBaseType_t uxErrorCount1 = 0, uxErrorCount2 = 0;
+..\User\task_control\task_concurrent_access_queue.c(169): warning:  #177-D: variable "uxErrorCount2"  was declared but never referenced
+      UBaseType_t uxErrorCount1 = 0, uxErrorCount2 = 0;
+..\User\task_control\task_concurrent_access_queue.c(409): warning:  #167-D: argument of type "BaseType_t (*)()" is incompatible with parameter of type "TimerCallbackFunction_t"
+                              xFirstTimerHandler);
+..\User\task_control\task_concurrent_access_queue.c(416): warning:  #167-D: argument of type "BaseType_t (*)(void)" is incompatible with parameter of type "TimerCallbackFunction_t"
+                              xSecondTimerHandler);
+..\User\task_control\task_concurrent_access_queue.c(107): warning:  #550-D: variable "xErrorStatus"  was set but never used
+  static BaseType_t xErrorStatus = pdPASS;
+..\User\task_control\task_concurrent_access_queue.c(403): warning:  #177-D: function "vInitialiseTimerForIntQueueTest"  was declared but never referenced
+  static void vInitialiseTimerForIntQueueTest()
+..\User\task_control\task_concurrent_access_queue.c: 8 warnings, 0 errors
+compiling gd32f4xx_crc.c...
+compiling gd32f4xx_adc.c...
+compiling gd32f4xx_ctc.c...
+compiling gd32f4xx_can.c...
+compiling gd32f4xx_dbg.c...
+compiling gd32f4xx_dac.c...
+compiling gd32f4xx_dci.c...
+compiling gd32f4xx_dma.c...
+compiling gd32f4xx_exti.c...
+compiling gd32f4xx_exmc.c...
+compiling gd32f4xx_fmc.c...
+..\Libraries\Board\GD32\GD32F4xx_standard_peripheral\Source\gd32f4xx_fmc.c(260): warning:  #188-D: enumerated type mixed with another type
+  		return fmc_sector;
+..\Libraries\Board\GD32\GD32F4xx_standard_peripheral\Source\gd32f4xx_fmc.c(261): warning:  #111-D: statement is unreachable
+  		break;
+..\Libraries\Board\GD32\GD32F4xx_standard_peripheral\Source\gd32f4xx_fmc.c(265): warning:  #188-D: enumerated type mixed with another type
+  	return fmc_sector;
+..\Libraries\Board\GD32\GD32F4xx_standard_peripheral\Source\gd32f4xx_fmc.c: 3 warnings, 0 errors
+compiling gd32f4xx_fwdgt.c...
+compiling gd32f4xx_enet.c...
+compiling gd32f4xx_iref.c...
+compiling gd32f4xx_gpio.c...
+compiling gd32f4xx_misc.c...
+compiling gd32f4xx_i2c.c...
+compiling gd32f4xx_pmu.c...
+compiling gd32f4xx_ipa.c...
+compiling gd32f4xx_rcu.c...
+compiling gd32f4xx_sdio.c...
+assembling startup_gd32f407.s...
+compiling gd32f4xx_it.c...
+..\User\config\GD\GD32F4xx\gd32f4xx_it.c(20): warning:  #223-D: function "xPortSysTickHandler" declared implicitly
+          xPortSysTickHandler();
+..\User\config\GD\GD32F4xx\gd32f4xx_it.c(29): warning:  #223-D: function "serial_usart_interrupt_handle" declared implicitly
+  	serial_usart_interrupt_handle();
+..\User\config\GD\GD32F4xx\gd32f4xx_it.c: 2 warnings, 0 errors
+compiling gd32f4xx_rtc.c...
+compiling gd32f4xx_spi.c...
+compiling gd32f4xx_syscfg.c...
+compiling gd32f4xx_tli.c...
+compiling gd32f4xx_trng.c...
+compiling gd32f4xx_wwdgt.c...
+compiling gd32f4xx_timer.c...
+compiling system_gd32f4xx.c...
+compiling gd32f4xx_usart.c...
+compiling drv_fwdgt.c...
+compiling drv_rtc.c...
+compiling drv_usart.c...
+..\User\drivers\drv_usart.c(58): warning:  #188-D: enumerated type mixed with another type
+      rcu_periph_clock_enable(usart_map->usart_clock);
+..\User\drivers\drv_usart.c(59): warning:  #188-D: enumerated type mixed with another type
+      rcu_periph_clock_enable(usart_map->gpio_tx_clock);
+..\User\drivers\drv_usart.c(60): warning:  #188-D: enumerated type mixed with another type
+      rcu_periph_clock_enable(usart_map->gpio_rx_clock);
+..\User\drivers\drv_usart.c(108): warning:  #188-D: enumerated type mixed with another type
+      usart_interrupt_enable(usart_init_struct->usart_handle, usart_init_struct->usart_interrupt);
+..\User\drivers\drv_usart.c: 4 warnings, 0 errors
+compiling list.c...
+compiling event_groups.c...
+compiling stream_buffer.c...
+compiling heap_4.c...
+compiling port.c...
+compiling timers.c...
+compiling queue.c...
+compiling tasks.c...
+linking...
+Program Size: Code=18476 RO-data=1172 RW-data=584 ZI-data=144928  
+After Build - User command #1: cmd /C del /q ".\Objects\*.o" ".\Objects\*.d" ".\Objects\*.crf"
+".\Objects\gd32f407_freertos.axf" - 0 Error(s), 48 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: GigaDevice
+                https://gd32mcu.com/data/documents/pack/GigaDevice.GD32F4xx_DFP.3.0.3.pack
+                GigaDevice::GD32F4xx_DFP@3.0.3
+                GigaDevice GD32F4xx Series Device Support and Examples
+
+<h2>Collection of Component include folders:</h2>
+  D:/Keil5_Packs/GigaDevice/GD32F4xx_DFP/3.0.3/Device/F4XX/Include
+
+<h2>Collection of Component Files used:</h2>
+Build Time Elapsed:  00:00:03
+</pre>
+</body>
+</html>

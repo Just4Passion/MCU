@@ -118,11 +118,17 @@ void drv_gpio_enable_clk(uint32_t gpio_handle)
         case GPIOC:
             RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
             break;
-        case GPIOG:
-            RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG, ENABLE);
+        case GPIOD:
+            RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
+            break;
+        case GPIOE:
+            RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
             break;
         case GPIOF:
             RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);
+            break;
+        case GPIOG:
+            RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG, ENABLE);
             break;
         default:
             break;

@@ -237,7 +237,7 @@ int drv_iwdg_init()
     g_iwdg.device.ops = &g_wdg_ops;
     /*配置*/
     g_iwdg.cfg.wdg_type = INDEPENEENT_WATCHDOG;
-    g_iwdg.cfg.feed_timeout_ms = 4095;
+    g_iwdg.cfg.feed_timeout_ms = 10000;
 
     ret = dy_device_register("iwdg", &g_iwdg.device);
     if (ret != DY_EOK)

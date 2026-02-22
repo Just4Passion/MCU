@@ -73,53 +73,10 @@
  * 
  ******************************************/
 
-
-/*****************************************
- * 
- *          存储器类型定义
- * 
- ******************************************/
-typedef struct
-{
-    FSMC_DEVICE_SRAM = 0,
-    FSMC_DEVICE_NOR_FLASH,
-    FSMC_DEVICE_NAND_FLASH,
-    FSMC_DEVICE_LCD,    // 8080接口
-}fsmc_device_type_t;
-
-
-/*每个bank的配置*/
-typedef struct
-{
-    uint32_t base_address;      // Bank基地址
-    uint32_t size;              // Bank总大小
-    uint8_t data_width;         // 数据宽度
-    uint8_t mem_type;           // 存储器类型
-    bool enabled;               // Bank使能状态
-}fsmc_bank_info_t;
-
-typedef struct
-{
-
-}fsmc_config_t;                 // 不同的Bank, 有不同的config
-
 /**/
 typedef struct 
 {
     dy_device_t device;
-    /********************************************************
-     * 如果有不同的设备注册进来
-     * 当某个设备执行了open之后, 其他设备就无法执行open了
-     * 当某个设备close之后, 其他设备可以执行初始化了
-     * 
-     * 
-     *********************************************************/
-    uint8_t attach_dev_open_flag;   //最多挂8个设备, 每个设备还有编号
-    fsmc_bank_info_t *probe_bank_dev;
-    int dev_num;
-
-    /*这里要如何设计*/
-
 }fsmc_dev_t;                    // 获取到config, 然后调用init去配置
 
 #endif

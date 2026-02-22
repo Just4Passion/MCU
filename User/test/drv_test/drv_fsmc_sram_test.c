@@ -29,8 +29,6 @@
 
 #include "drv_timer.h"
 
-#include "drv_fsmc_lcd.h"
-
 #include "ff_app.h"
 
 /*********************
@@ -144,69 +142,25 @@ void feed_iwdg()
 	}
 }
 
-void lcd_init_show()
+void sram_test()
 {
-	int ret = DY_EOK;
-	dy_device_t *lcd_dev = dy_find_device("lcd");
-	if (NULL == lcd_dev)
-	{
-		return;
-	}
-	/*硬件初始化已经完成*/
+#define Bank1_SRAM4_ADDR    ((uint32_t)(0x6C000000))
 
-	/****************************************************************
-	 * 						上电初始化配置
-	 ****************************************************************/
-	/*RST复位*/
-	ret = lcd_dev->ops->control(lcd_dev, LCD_RST, NULL);
-	/*寄存器配置*/
-	ret = lcd_dev->ops->control(lcd_dev, LCD_REG_CONFIG, NULL);
-	/*设置扫描方向*/
-	uint8_t gram_scan_mode = 6;
-	ret = lcd_dev->ops->control(lcd_dev, LCD_GRAM_SCAN_CONFIG, &gram_scan_mode);
-	/*清屏*/
-	ret = lcd_dev->ops->control(lcd_dev, LCD_CLEAR_SCREEN, NULL);
-	/*开启背光灯*/
-	ret = lcd_dev->ops->control(lcd_dev, LCD_OPEN_BK_LIGHT, NULL);
+#define Mem_ADDR ((uint32_t)0x2001FF00)
 
-	/****************************************************************
-	 * 						图形驱动测试
-	 ****************************************************************/
-	/*画直线*/
-	fsmc_lcd_line_t line = {.point1.x = 0, .point1.y = 0, .point2.x = 400, .point2.y = 400, .color = LCD_PIXEL_WHITE};
-	ret = lcd_dev->ops->control(lcd_dev, LCD_DRAW_LINE, &line);
-	/*画矩形*/
-	fsmc_lcd_rectangle_t rectangle = {.start_point.x = 0, .start_point.y = 0, .width = 200, .height = 200, .color = LCD_PIXEL_BLACK, .filled = true};
-	ret = lcd_dev->ops->control(lcd_dev, LCD_DRAW_RECTANGLE, &rectangle);
-	/*画圆形*/
-	fsmc_lcd_circle_t circle = {.center.x = 200, .center.y = 200, .radius = 200, .color = LCD_PIXEL_BLUE, .filled = true};
-	ret = lcd_dev->ops->control(lcd_dev, LCD_DRAW_CIRCLE, &circle);
-	
-	/****************************************************************
-	 * 						字符驱动测试
-	 ****************************************************************/
-	/*显示字符*/
-	fsmc_lcd_string_t charactor = {.position.x = 400, .position.y = 400, .color = LCD_PIXEL_YELLOW, .str = "X"};
-	ret = lcd_dev->ops->control(lcd_dev, LCD_DISPLAY_EN_CHAR, &charactor);
-	/*显示字符串*/
-	fsmc_lcd_string_t str = {.position.x = 0, .position.y = 0, .color = LCD_PIXEL_YELLOW, .str = "Hello World"};
-	ret = lcd_dev->ops->control(lcd_dev, LCD_DISPLAY_EN_STRING, &str);
+	uint32_t *mem_addr = (__IO uint32_t *)((uint32_t)(0x6C000000));
+	/*向映射地址写入数据*/
+	*mem_addr = 100;
+	/*从映射地址读取数据*/
+	printf("mem_addr = 0x%08x, value = %d\r\n", mem_addr, *mem_addr);
+
+	uint32_t *maddr = (__IO uint32_t *)((uint32_t)0x2001FF00);
+	/*向映射地址写入数据*/
+	*maddr = 100;
+	/*从映射地址读取数据*/
+	printf("maddr = 0x%08x, value = %d\r\n", maddr, *maddr);
 }
 
-void lcd_draw_line()
-{
-	int ret = DY_EOK;
-	dy_device_t *lcd_dev = dy_find_device("lcd");
-	if (NULL == lcd_dev)
-	{
-		return;
-	}
-	/*清屏*/
-
-	/*绘制*/
-	//fsmc_lcd_line_t line = {.point1.x = 0, .point1.y = 0, .point2.x = 400, .point2.y = 400, .color = 0xFFFF};
-	//ret = lcd_dev->ops->control(lcd_dev, LCD_DRAW_LINE, &line);
-}
 
 /*板子初始化*/
 void board_init()
@@ -231,10 +185,7 @@ void board_init()
 	//drv_ic_timer_init();
 
 	/*sram*/
-	//drv_fsmc_sram_init();
-
-	/*lcd*/
-	drv_fsmc_lcd_init();
+	drv_fsmc_sram_init();
 
 	/*注册所有硬件*/
 	drv_led_init();
@@ -259,37 +210,12 @@ void system_init()
 	int ret = 0;
 	timer_manager_init();
 	event_engine_init();
-	lcd_init_show();
 }
-
-void key_timer_callback()
-{
-    static uint8_t key_last_state = 0;
-    uint8_t key_cur_state = 0;
-    dy_device_t *key1 = dy_find_device("key1");
-    if (NULL == key1)
-    {
-        return;
-    }
-    /*读取按键状态, 并记录*/
-    key1->ops->read(key1, &key_cur_state, 1);
-    /*说明状态未发生改变*/
-    if (key_cur_state != key_last_state)
-    {
-        if (0 != key_cur_state)
-        {
-            /*之前是松开的, 现在是按下了*/
-            
-        }
-    }
-    key_last_state = key_cur_state;
-}
-
 
 void app_init()
 {
-	//uint8_t timer_id1 = timer_create(10, lcd_draw_line, true);
-	//timer_start(timer_id1);
+	uint8_t timer_id1 = timer_create(5000, sram_test, true);
+	timer_start(timer_id1);
 	uint8_t timer_id2 = timer_create(10, key1_timer_callback, true);
 	timer_start(timer_id2);
 	uint8_t timer_id7 = timer_create(2000, feed_iwdg, true);
@@ -312,8 +238,8 @@ int main()
 		timer_manager_expired_timer_handler();
 		/*事件处理*/
 		event_process();
+
 	}
 	return 0;
 }
-
 

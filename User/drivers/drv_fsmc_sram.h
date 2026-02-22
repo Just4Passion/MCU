@@ -7,6 +7,7 @@
 
 #include "kservice.h"
 
+int drv_fsmc_sram_init();
 
 
 #endif

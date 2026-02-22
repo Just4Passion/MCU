@@ -21,61 +21,65 @@ Target DLL:      CMSIS_AGDI.dll V1.33.24.0
 Dialog DLL:      TCM.DLL V1.56.6.0
  
 <h2>Project:</h2>
-D:\SelfProject\STM32F407\STM32_YeHuo_F407ZG\Project\WD001.uvprojx
-Project File Date:  01/25/2026
+D:\SelfProject\GitHub\Keil\GitHub_MCU\all\MCU\Project\WD001.uvprojx
+Project File Date:  02/22/2026
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARM_Compiler_5.06u7\Bin'
 Build target 'WD001_All'
-compiling stm32f4xx_dcmi.c...
-compiling stm32f4xx_cryp_tdes.c...
-compiling stm32f4xx_dac.c...
-compiling stm32f4xx_dfsdm.c...
-compiling stm32f4xx_cec.c...
-compiling stm32f4xx_dbgmcu.c...
 compiling misc.c...
+compiling stm32f4xx_cec.c...
 compiling stm32f4xx_crc.c...
-compiling stm32f4xx_cryp.c...
-compiling stm32f4xx_adc.c...
 compiling stm32f4xx_cryp_des.c...
 compiling stm32f4xx_can.c...
-compiling stm32f4xx_cryp_aes.c...
+compiling stm32f4xx_dac.c...
+compiling stm32f4xx_dfsdm.c...
+compiling stm32f4xx_dcmi.c...
+compiling stm32f4xx_dbgmcu.c...
+compiling stm32f4xx_cryp_tdes.c...
+compiling stm32f4xx_cryp.c...
+compiling stm32f4xx_adc.c...
 compiling stm32f4xx_dma.c...
 compiling stm32f4xx_dma2d.c...
-compiling stm32f4xx_exti.c...
+compiling stm32f4xx_cryp_aes.c...
 compiling stm32f4xx_dsi.c...
-compiling stm32f4xx_fmpi2c.c...
-compiling stm32f4xx_fsmc.c...
-compiling stm32f4xx_i2c.c...
-compiling stm32f4xx_hash_md5.c...
+compiling stm32f4xx_exti.c...
 compiling stm32f4xx_flash.c...
-compiling stm32f4xx_hash_sha1.c...
-compiling stm32f4xx_hash.c...
-compiling stm32f4xx_iwdg.c...
 compiling stm32f4xx_flash_ramfunc.c...
+compiling stm32f4xx_fmpi2c.c...
 compiling stm32f4xx_gpio.c...
+compiling stm32f4xx_iwdg.c...
+compiling stm32f4xx_hash.c...
+compiling stm32f4xx_hash_md5.c...
+compiling stm32f4xx_fsmc.c...
+compiling stm32f4xx_hash_sha1.c...
+compiling stm32f4xx_i2c.c...
 compiling stm32f4xx_lptim.c...
+compiling stm32f4xx_ltdc.c...
 compiling stm32f4xx_pwr.c...
 compiling stm32f4xx_qspi.c...
-compiling stm32f4xx_ltdc.c...
-compiling stm32f4xx_rng.c...
 compiling stm32f4xx_rcc.c...
+compiling stm32f4xx_rng.c...
+compiling stm32f4xx_sdio.c...
+compiling stm32f4xx_sai.c...
 assembling startup_stm32f40xx.s...
 compiling stm32f4xx_spdifrx.c...
-compiling stm32f4xx_syscfg.c...
-compiling stm32f4xx_sai.c...
-compiling stm32f4xx_sdio.c...
-compiling stm32f4xx_spi.c...
 compiling stm32f4xx_rtc.c...
-compiling stm32f4xx_tim.c...
-compiling stm32f4xx_wwdg.c...
+compiling stm32f4xx_syscfg.c...
+compiling stm32f4xx_spi.c...
+compiling bus.c...
+..\User\kservice\bus\bus.c(188): warning:  #177-D: function "dy_bus_get_device_count"  was declared but never referenced
+  static int dy_bus_get_device_count(dy_bus_t *bus)
+..\User\kservice\bus\bus.c: 1 warning, 0 errors
 compiling stm32f4xx_usart.c...
+compiling stm32f4xx_wwdg.c...
 compiling system_stm32f4xx.c...
 compiling device.c...
+compiling stm32f4xx_tim.c...
 compiling stm32f4xx_it.c...
-..\User\drivers\drv_time.h(5): warning:  #1295-D: Deprecated declaration drv_time_sys_tick_increment - give arg types
+..\User\drivers\drv_time.h(10): warning:  #1295-D: Deprecated declaration drv_time_sys_tick_increment - give arg types
   void drv_time_sys_tick_increment();
-..\User\drivers\drv_time.h(6): warning:  #1295-D: Deprecated declaration drv_time_get_sys_tick - give arg types
+..\User\drivers\drv_time.h(11): warning:  #1295-D: Deprecated declaration drv_time_get_sys_tick - give arg types
   uint32_t drv_time_get_sys_tick();
 ..\User\drivers\drv_timer.h(140): warning:  #1295-D: Deprecated declaration drv_base_timer_init - give arg types
   int drv_base_timer_init();
@@ -88,51 +92,11 @@ compiling stm32f4xx_it.c...
 ..\User\config\stm32f4xx_it.c(235): warning:  #870-D: invalid multibyte character sequence
           printf("占空比：%0.2f%%   频率�?%0.2fHz\n", duty_cycle, frequency);
 ..\User\config\stm32f4xx_it.c: 7 warnings, 0 errors
-compiling bus.c...
-..\User\kservice\bus\bus.c(188): warning:  #177-D: function "dy_bus_get_device_count"  was declared but never referenced
-  static int dy_bus_get_device_count(dy_bus_t *bus)
-..\User\kservice\bus\bus.c: 1 warning, 0 errors
 compiling timer_manager.c...
-compiling drv_time.c...
-..\User\drivers\drv_time.h(5): warning:  #1295-D: Deprecated declaration drv_time_sys_tick_increment - give arg types
-  void drv_time_sys_tick_increment();
-..\User\drivers\drv_time.h(6): warning:  #1295-D: Deprecated declaration drv_time_get_sys_tick - give arg types
-  uint32_t drv_time_get_sys_tick();
-..\User\drivers\drv_time.c: 2 warnings, 0 errors
-compiling drv_gpio.c...
-compiling drv_led.c...
 compiling simple_event_engine.c...
+compiling drv_led.c...
+compiling drv_gpio.c...
 compiling drv_key.c...
-compiling drv_misc_func.c...
-..\User\drivers\drv_misc_func.c(112): warning:  #3642-D: this constant expression has type "GPIO_TypeDef *" instead of the required "uint32_t" type
-          case GPIOA:
-..\User\drivers\drv_misc_func.c(115): warning:  #3642-D: this constant expression has type "GPIO_TypeDef *" instead of the required "uint32_t" type
-          case GPIOB:
-..\User\drivers\drv_misc_func.c(118): warning:  #3642-D: this constant expression has type "GPIO_TypeDef *" instead of the required "uint32_t" type
-          case GPIOC:
-..\User\drivers\drv_misc_func.c(121): warning:  #3642-D: this constant expression has type "GPIO_TypeDef *" instead of the required "uint32_t" type
-          case GPIOG:
-..\User\drivers\drv_misc_func.c(124): warning:  #3642-D: this constant expression has type "GPIO_TypeDef *" instead of the required "uint32_t" type
-          case GPIOF:
-..\User\drivers\drv_misc_func.c(137): warning:  #3642-D: this constant expression has type "GPIO_TypeDef *" instead of the required "uint32_t" type
-          case GPIOA:
-..\User\drivers\drv_misc_func.c(140): warning:  #3642-D: this constant expression has type "GPIO_TypeDef *" instead of the required "uint32_t" type
-          case GPIOC:
-..\User\drivers\drv_misc_func.c(174): warning:  #3642-D: this constant expression has type "I2C_TypeDef *" instead of the required "uint32_t" type
-          case I2C1:
-..\User\drivers\drv_misc_func.c(176): warning:  #3642-D: this constant expression has type "I2C_TypeDef *" instead of the required "uint32_t" type
-          case I2C2:
-..\User\drivers\drv_misc_func.c(178): warning:  #3642-D: this constant expression has type "I2C_TypeDef *" instead of the required "uint32_t" type
-          case I2C3:
-..\User\drivers\drv_misc_func.c(190): warning:  #3642-D: this constant expression has type "USART_TypeDef *" instead of the required "uint32_t" type
-          case USART1:
-..\User\drivers\drv_misc_func.c(192): warning:  #3642-D: this constant expression has type "USART_TypeDef *" instead of the required "uint32_t" type
-          case USART2:
-..\User\drivers\drv_misc_func.c(194): warning:  #3642-D: this constant expression has type "USART_TypeDef *" instead of the required "uint32_t" type
-          case USART3:
-..\User\drivers\drv_misc_func.c(43): warning:  #177-D: variable "g_gpio_exti_port_src_set"  was declared but never referenced
-  static uint32_t g_gpio_exti_port_src_set[] = 
-..\User\drivers\drv_misc_func.c: 14 warnings, 0 errors
 compiling drv_i2c.c...
 ..\User\drivers\drv_i2c.c(140): warning:  #177-D: variable "i2c_bus"  was declared but never referenced
       dy_i2c_bus_t *i2c_bus = (dy_i2c_bus_t *)bus;
@@ -151,6 +115,57 @@ compiling drv_i2c.c...
 ..\User\drivers\drv_i2c.c(347): warning:  #188-D: enumerated type mixed with another type
       .er_irq_type = 0,
 ..\User\drivers\drv_i2c.c: 8 warnings, 0 errors
+compiling drv_usart.c...
+compiling drv_misc_func.c...
+..\User\drivers\drv_misc_func.c(112): warning:  #3642-D: this constant expression has type "GPIO_TypeDef *" instead of the required "uint32_t" type
+          case GPIOA:
+..\User\drivers\drv_misc_func.c(115): warning:  #3642-D: this constant expression has type "GPIO_TypeDef *" instead of the required "uint32_t" type
+          case GPIOB:
+..\User\drivers\drv_misc_func.c(118): warning:  #3642-D: this constant expression has type "GPIO_TypeDef *" instead of the required "uint32_t" type
+          case GPIOC:
+..\User\drivers\drv_misc_func.c(121): warning:  #3642-D: this constant expression has type "GPIO_TypeDef *" instead of the required "uint32_t" type
+          case GPIOD:
+..\User\drivers\drv_misc_func.c(124): warning:  #3642-D: this constant expression has type "GPIO_TypeDef *" instead of the required "uint32_t" type
+          case GPIOE:
+..\User\drivers\drv_misc_func.c(127): warning:  #3642-D: this constant expression has type "GPIO_TypeDef *" instead of the required "uint32_t" type
+          case GPIOF:
+..\User\drivers\drv_misc_func.c(130): warning:  #3642-D: this constant expression has type "GPIO_TypeDef *" instead of the required "uint32_t" type
+          case GPIOG:
+..\User\drivers\drv_misc_func.c(143): warning:  #3642-D: this constant expression has type "GPIO_TypeDef *" instead of the required "uint32_t" type
+          case GPIOA:
+..\User\drivers\drv_misc_func.c(146): warning:  #3642-D: this constant expression has type "GPIO_TypeDef *" instead of the required "uint32_t" type
+          case GPIOC:
+..\User\drivers\drv_misc_func.c(180): warning:  #3642-D: this constant expression has type "I2C_TypeDef *" instead of the required "uint32_t" type
+          case I2C1:
+..\User\drivers\drv_misc_func.c(182): warning:  #3642-D: this constant expression has type "I2C_TypeDef *" instead of the required "uint32_t" type
+          case I2C2:
+..\User\drivers\drv_misc_func.c(184): warning:  #3642-D: this constant expression has type "I2C_TypeDef *" instead of the required "uint32_t" type
+          case I2C3:
+..\User\drivers\drv_misc_func.c(196): warning:  #3642-D: this constant expression has type "USART_TypeDef *" instead of the required "uint32_t" type
+          case USART1:
+..\User\drivers\drv_misc_func.c(198): warning:  #3642-D: this constant expression has type "USART_TypeDef *" instead of the required "uint32_t" type
+          case USART2:
+..\User\drivers\drv_misc_func.c(200): warning:  #3642-D: this constant expression has type "USART_TypeDef *" instead of the required "uint32_t" type
+          case USART3:
+..\User\drivers\drv_misc_func.c(43): warning:  #177-D: variable "g_gpio_exti_port_src_set"  was declared but never referenced
+  static uint32_t g_gpio_exti_port_src_set[] = 
+..\User\drivers\drv_misc_func.c: 16 warnings, 0 errors
+compiling drv_eeprom.c...
+..\User\drivers\drv_time.h(10): warning:  #1295-D: Deprecated declaration drv_time_sys_tick_increment - give arg types
+  void drv_time_sys_tick_increment();
+..\User\drivers\drv_time.h(11): warning:  #1295-D: Deprecated declaration drv_time_get_sys_tick - give arg types
+  uint32_t drv_time_get_sys_tick();
+..\User\drivers\drv_eeprom.c(215): warning:  #177-D: variable "i2c_bus"  was declared but never referenced
+      dy_i2c_bus_t *i2c_bus = (dy_i2c_bus_t*)(dev->bus);
+..\User\drivers\drv_eeprom.c(113): warning:  #177-D: function "eeprom_write_bytes"  was declared but never referenced
+  static int eeprom_write_bytes(dy_device_t *dev, void *buf, unsigned int len)
+..\User\drivers\drv_eeprom.c: 4 warnings, 0 errors
+compiling drv_time.c...
+..\User\drivers\drv_time.h(10): warning:  #1295-D: Deprecated declaration drv_time_sys_tick_increment - give arg types
+  void drv_time_sys_tick_increment();
+..\User\drivers\drv_time.h(11): warning:  #1295-D: Deprecated declaration drv_time_get_sys_tick - give arg types
+  uint32_t drv_time_get_sys_tick();
+..\User\drivers\drv_time.c: 2 warnings, 0 errors
 compiling drv_serial.c...
 ..\User\drivers\drv_serial.c(64): warning:  #167-D: argument of type "dy_usart_bus_t *" is incompatible with parameter of type "dy_bus_t *"
       return usart_bus->bus.ops->send(usart_bus, buf, len);
@@ -159,17 +174,6 @@ compiling drv_serial.c...
 ..\User\drivers\drv_serial.c(79): warning:  #167-D: argument of type "dy_usart_bus_t *" is incompatible with parameter of type "dy_bus_t *"
               usart_bus->ops.usart_bus_control(usart_bus, USART_SET_BAUD_RATE, arg);
 ..\User\drivers\drv_serial.c: 3 warnings, 0 errors
-compiling drv_usart.c...
-compiling drv_eeprom.c...
-..\User\drivers\drv_time.h(5): warning:  #1295-D: Deprecated declaration drv_time_sys_tick_increment - give arg types
-  void drv_time_sys_tick_increment();
-..\User\drivers\drv_time.h(6): warning:  #1295-D: Deprecated declaration drv_time_get_sys_tick - give arg types
-  uint32_t drv_time_get_sys_tick();
-..\User\drivers\drv_eeprom.c(215): warning:  #177-D: variable "i2c_bus"  was declared but never referenced
-      dy_i2c_bus_t *i2c_bus = (dy_i2c_bus_t*)(dev->bus);
-..\User\drivers\drv_eeprom.c(113): warning:  #177-D: function "eeprom_write_bytes"  was declared but never referenced
-  static int eeprom_write_bytes(dy_device_t *dev, void *buf, unsigned int len)
-..\User\drivers\drv_eeprom.c: 4 warnings, 0 errors
 compiling drv_spi.c...
 ..\User\drivers\drv_spi.c(11): warning:  #3642-D: this constant expression has type "SPI_TypeDef *" instead of the required "uint32_t" type
           case SPI1:
@@ -206,36 +210,6 @@ compiling drv_watchdog.c...
 ..\User\drivers\drv_watchdog.c(144): warning:  #177-D: variable "stNVICInit"  was declared but never referenced
       NVIC_InitTypeDef   stNVICInit;
 ..\User\drivers\drv_watchdog.c: 4 warnings, 0 errors
-compiling ff_app.c...
-..\User\middleware\fs\fat\ff_app.h(15): warning:  #1295-D: Deprecated declaration fatfs_mount - give arg types
-  int fatfs_mount();
-..\User\middleware\fs\fat\ff_app.h(22): warning:  #1295-D: Deprecated declaration fatfs_unmount - give arg types
-  int fatfs_unmount();
-..\User\middleware\fs\fat\ff_app.c(39): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
-      ret = f_mount(&g_fatfs_info.fat_fs, g_fatfs_info.logical_driver_number, 1);
-..\User\middleware\fs\fat\ff_app.c(45): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
-          ret = f_mkfs(g_fatfs_info.logical_driver_number, 
-..\User\middleware\fs\fat\ff_app.c(50): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
-              ret = f_mount(NULL, g_fatfs_info.logical_driver_number, 0); //取消挂载
-..\User\middleware\fs\fat\ff_app.c(56): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
-              ret = f_mount(&g_fatfs_info.fat_fs, g_fatfs_info.logical_driver_number, 1); //挂载
-..\User\middleware\fs\fat\ff_app.c(83): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
-      int ret = f_mount(NULL, g_fatfs_info.logical_driver_number, 1);
-..\User\middleware\fs\fat\ff_app.c(104): warning:  #223-D: function "strlen" declared implicitly
-      int tail = strlen(path);
-..\User\middleware\fs\fat\ff_app.c(129): warning:  #223-D: function "strcmp" declared implicitly
-          if (0 == strcmp(file_name, "."))
-..\User\middleware\fs\fat\ff_app.c(138): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "size_t"
-              snprintf(&path[tail], "%s", file_name);
-..\User\middleware\fs\fat\ff_app.c: 10 warnings, 0 errors
-compiling diskio.c...
-..\User\drivers\drv_spi_flash.h(60): warning:  #1295-D: Deprecated declaration drv_spi_flash_init - give arg types
-  int drv_spi_flash_init();
-..\User\drivers\drv_rtc.h(26): warning:  #1295-D: Deprecated declaration drv_rtc_init - give arg types
-  int drv_rtc_init();
-..\User\middleware\fs\fat\diskio.c(89): warning:  #177-D: variable "timeout"  was declared but never referenced
-  	uint32_t timeout = DEV_DISK_OP_TIMEOUT;
-..\User\middleware\fs\fat\diskio.c: 3 warnings, 0 errors
 compiling drv_timer.c...
 ..\User\drivers\drv_timer.h(140): warning:  #1295-D: Deprecated declaration drv_base_timer_init - give arg types
   int drv_base_timer_init();
@@ -295,9 +269,127 @@ compiling drv_timer.c...
       int ret = DY_EOK;
 ..\User\drivers\drv_timer.c: 28 warnings, 0 errors
 compiling drv_dac.c...
+compiling drv_fsmc_sram.c...
+..\User\drivers\drv_fsmc_sram.h(10): warning:  #1295-D: Deprecated declaration drv_fsmc_sram_init - give arg types
+  int drv_fsmc_sram_init();
+..\User\drivers\drv_fsmc_sram.c(234): warning:  #223-D: function "drv_gpio_enable_clk" declared implicitly
+          drv_gpio_enable_clk(fsmc_sram->cfg.hw_cfg.dports[i].gpio_d);
+..\User\drivers\drv_fsmc_sram.c(240): warning:  #223-D: function "drv_gpio_get_af_src" declared implicitly
+              drv_gpio_get_af_src(fsmc_sram->cfg.hw_cfg.dports[i].gpio_dpin), GPIO_AF_FSMC);
+..\User\drivers\drv_fsmc_sram.c(250): warning:  #223-D: function "drv_gpio_enable_clk" declared implicitly
+          drv_gpio_enable_clk(fsmc_sram->cfg.hw_cfg.aports[i].gpio_a);
+..\User\drivers\drv_fsmc_sram.c(256): warning:  #223-D: function "drv_gpio_get_af_src" declared implicitly
+              drv_gpio_get_af_src(fsmc_sram->cfg.hw_cfg.aports[i].gpio_apin), GPIO_AF_FSMC);
+..\User\drivers\drv_fsmc_sram.c(263): warning:  #223-D: function "drv_gpio_enable_clk" declared implicitly
+      drv_gpio_enable_clk(fsmc_sram->cfg.hw_cfg.cs.gpio_c);
+..\User\drivers\drv_fsmc_sram.c(269): warning:  #223-D: function "drv_gpio_get_af_src" declared implicitly
+          drv_gpio_get_af_src(fsmc_sram->cfg.hw_cfg.cs.gpio_cpin), GPIO_AF_FSMC);
+..\User\drivers\drv_fsmc_sram.c(351): warning:  #223-D: function "printf" declared implicitly
+      printf("=======================fsmc sram init\r\n");
+..\User\drivers\drv_fsmc_sram.c(532): warning:  #223-D: function "strncpy" declared implicitly
+      strncpy(g_fsmc_sram.device.name, "sram", sizeof(g_fsmc_sram.device.name) - 1);
+..\User\drivers\drv_fsmc_sram.c(530): warning:  #550-D: variable "ret"  was set but never used
+      int ret = DY_EOK;
+..\User\drivers\drv_fsmc_sram.c: 10 warnings, 0 errors
+compiling drv_rng.c...
+..\User\drivers\drv_rng.c(61): warning:  #120-D: return value type does not match the function type
+      return DY_EOK;
+..\User\drivers\drv_rng.c(89): warning:  #120-D: return value type does not match the function type
+      return DY_EOK;
+..\User\drivers\drv_rng.c(93): warning:  #144-D: a value of type "void (*)(dy_device_t *)" cannot be used to initialize an entity of type "int (*)(dy_device_t *)"
+      .init = rng_init,
+..\User\drivers\drv_rng.c(94): warning:  #144-D: a value of type "void (*)(dy_device_t *, int, void *)" cannot be used to initialize an entity of type "int (*)(dy_device_t *, int, void *)"
+      .control = rng_control
+..\User\drivers\drv_rng.c(100): warning:  #223-D: function "strncpy" declared implicitly
+      strncpy(g_rng_dev.device.name, "rng", sizeof(g_rng_dev.device.name) - 1);
+..\User\drivers\drv_rng.c(99): warning:  #550-D: variable "ret"  was set but never used
+      int ret = DY_EOK;
+..\User\drivers\drv_rng.c: 6 warnings, 0 errors
+compiling ff_app.c...
+..\User\middleware\fs\fat\ff_app.h(15): warning:  #1295-D: Deprecated declaration fatfs_mount - give arg types
+  int fatfs_mount();
+..\User\middleware\fs\fat\ff_app.h(22): warning:  #1295-D: Deprecated declaration fatfs_unmount - give arg types
+  int fatfs_unmount();
+..\User\middleware\fs\fat\ff_app.c(39): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
+      ret = f_mount(&g_fatfs_info.fat_fs, g_fatfs_info.logical_driver_number, 1);
+..\User\middleware\fs\fat\ff_app.c(45): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
+          ret = f_mkfs(g_fatfs_info.logical_driver_number, 
+..\User\middleware\fs\fat\ff_app.c(50): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
+              ret = f_mount(NULL, g_fatfs_info.logical_driver_number, 0); //取消挂载
+..\User\middleware\fs\fat\ff_app.c(56): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
+              ret = f_mount(&g_fatfs_info.fat_fs, g_fatfs_info.logical_driver_number, 1); //挂载
+..\User\middleware\fs\fat\ff_app.c(83): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const TCHAR *"
+      int ret = f_mount(NULL, g_fatfs_info.logical_driver_number, 1);
+..\User\middleware\fs\fat\ff_app.c(104): warning:  #223-D: function "strlen" declared implicitly
+      int tail = strlen(path);
+..\User\middleware\fs\fat\ff_app.c(129): warning:  #223-D: function "strcmp" declared implicitly
+          if (0 == strcmp(file_name, "."))
+..\User\middleware\fs\fat\ff_app.c(138): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "size_t"
+              snprintf(&path[tail], "%s", file_name);
+..\User\middleware\fs\fat\ff_app.c: 10 warnings, 0 errors
 compiling ffsystem.c...
-compiling ff.c...
+compiling drv_fsmc_lcd.c...
+..\User\drivers\drv_time.h(10): warning:  #1295-D: Deprecated declaration drv_time_sys_tick_increment - give arg types
+  void drv_time_sys_tick_increment();
+..\User\drivers\drv_time.h(11): warning:  #1295-D: Deprecated declaration drv_time_get_sys_tick - give arg types
+  uint32_t drv_time_get_sys_tick();
+..\User\drivers\drv_fsmc_lcd.h(95): warning:  #1295-D: Deprecated declaration drv_fsmc_lcd_init - give arg types
+  int drv_fsmc_lcd_init();
+..\User\drivers\drv_fsmc_lcd.h(98): warning:  #1-D: last line of file ends without a newline
+  #endif
+..\User\drivers\drv_fsmc_lcd.c(523): warning:  #177-D: variable "pixel_ret"  was declared but never referenced
+      uint16_t pixel_ret = 0;
+..\User\drivers\drv_fsmc_lcd.c(562): warning:  #177-D: variable "error2"  was declared but never referenced
+      int16_t error, error2;
+..\User\drivers\drv_fsmc_lcd.c(1017): warning:  #223-D: function "drv_gpio_enable_clk" declared implicitly
+          drv_gpio_enable_clk(fsmc_lcd->cfg.hw_cfg.dports[i].gpio_d);
+..\User\drivers\drv_fsmc_lcd.c(1023): warning:  #223-D: function "drv_gpio_get_af_src" declared implicitly
+              drv_gpio_get_af_src(fsmc_lcd->cfg.hw_cfg.dports[i].gpio_dpin), GPIO_AF_FSMC);
+..\User\drivers\drv_fsmc_lcd.c(1030): warning:  #223-D: function "drv_gpio_enable_clk" declared implicitly
+      drv_gpio_enable_clk(fsmc_lcd->cfg.hw_cfg.cs.gpio_c);
+..\User\drivers\drv_fsmc_lcd.c(1036): warning:  #223-D: function "drv_gpio_get_af_src" declared implicitly
+          drv_gpio_get_af_src(fsmc_lcd->cfg.hw_cfg.cs.gpio_cpin), GPIO_AF_FSMC);
+..\User\drivers\drv_fsmc_lcd.c(1129): warning:  #223-D: function "printf" declared implicitly
+      printf("=======================fsmc lcd init\r\n");
+..\User\drivers\drv_fsmc_lcd.c(1165): warning:  #1182-D: a declaration cannot have a label
+              fsmc_lcd_window_config_t *window = (fsmc_lcd_window_config_t*)arg;
+..\User\drivers\drv_fsmc_lcd.c(1182): warning:  #1182-D: a declaration cannot have a label
+              fsmc_lcd_line_t *line = (fsmc_lcd_line_t*)arg;
+..\User\drivers\drv_fsmc_lcd.c(1189): warning:  #1182-D: a declaration cannot have a label
+              fsmc_lcd_rectangle_t *rectangle = (fsmc_lcd_rectangle_t*)arg;
+..\User\drivers\drv_fsmc_lcd.c(1198): warning:  #1182-D: a declaration cannot have a label
+              fsmc_lcd_circle_t *circle = (fsmc_lcd_circle_t*)arg;
+..\User\drivers\drv_fsmc_lcd.c(1207): warning:  #1182-D: a declaration cannot have a label
+              fsmc_lcd_string_t *charactor = (fsmc_lcd_string_t*)arg;
+..\User\drivers\drv_fsmc_lcd.c(1214): warning:  #1182-D: a declaration cannot have a label
+              fsmc_lcd_string_t *str = (fsmc_lcd_string_t*)arg;
+..\User\drivers\drv_fsmc_lcd.c(1150): warning:  #546-D: transfer of control bypasses initialization of:
+            variable "window"  (declared at line 1165)
+            variable "line"  (declared at line 1182)
+            variable "rectangle"  (declared at line 1189)
+            variable "circle"  (declared at line 1198)
+            variable "charactor"  (declared at line 1207)
+            variable "str"  (declared at line 1214)
+      switch (cmd)
+      ^
+..\User\drivers\drv_fsmc_lcd.c(1334): warning:  #223-D: function "strncpy" declared implicitly
+      strncpy(g_lcd_dev.device.name, "lcd", sizeof(g_lcd_dev.device.name) - 1);
+..\User\drivers\drv_fsmc_lcd.c(1331): warning:  #550-D: variable "ret"  was set but never used
+      int ret = DY_EOK;
+..\User\drivers\drv_fsmc_lcd.c(540): warning:  #177-D: function "fsmc_lcd_ILI9806G_get_pixel"  was declared but never referenced
+  static uint16_t fsmc_lcd_ILI9806G_get_pixel(dy_device_t *dev, uint16_t x, uint16_t y)
+..\User\drivers\drv_fsmc_lcd.c: 21 warnings, 0 errors
+compiling diskio.c...
+..\User\drivers\drv_spi_flash.h(60): warning:  #1295-D: Deprecated declaration drv_spi_flash_init - give arg types
+  int drv_spi_flash_init();
+..\User\drivers\drv_rtc.h(26): warning:  #1295-D: Deprecated declaration drv_rtc_init - give arg types
+  int drv_rtc_init();
+..\User\middleware\fs\fat\diskio.c(89): warning:  #177-D: variable "timeout"  was declared but never referenced
+  	uint32_t timeout = DEV_DISK_OP_TIMEOUT;
+..\User\middleware\fs\fat\diskio.c: 3 warnings, 0 errors
 compiling ffunicode.c...
+compiling ff.c...
+compiling ascii_fonts.c...
 compiling main.c...
 ..\User\drivers\drv_spi_flash.h(60): warning:  #1295-D: Deprecated declaration drv_spi_flash_init - give arg types
   int drv_spi_flash_init();
@@ -309,29 +401,29 @@ compiling main.c...
   int drv_wwdg_init();
 ..\User\drivers\drv_timer.h(140): warning:  #1295-D: Deprecated declaration drv_base_timer_init - give arg types
   int drv_base_timer_init();
+..\User\drivers\drv_fsmc_lcd.h(95): warning:  #1295-D: Deprecated declaration drv_fsmc_lcd_init - give arg types
+  int drv_fsmc_lcd_init();
+..\User\drivers\drv_fsmc_lcd.h(98): warning:  #1-D: last line of file ends without a newline
+  #endif
 ..\User\middleware\fs\fat\ff_app.h(15): warning:  #1295-D: Deprecated declaration fatfs_mount - give arg types
   int fatfs_mount();
 ..\User\middleware\fs\fat\ff_app.h(22): warning:  #1295-D: Deprecated declaration fatfs_unmount - give arg types
   int fatfs_unmount();
-..\User\app\main.c(198): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	float brightness = pow(sin(normalized * 3.14159), 2.2); // 伽马校正2.2
-..\User\app\main.c(235): warning:  #177-D: variable "ret"  was declared but never referenced
+..\User\app\main.c(149): warning:  #550-D: variable "ret"  was set but never used
   	int ret = DY_EOK;
-..\User\app\main.c(287): warning:  #223-D: function "drv_oc_timer_init" declared implicitly
-  	drv_oc_timer_init();
-..\User\app\main.c(288): warning:  #223-D: function "drv_ic_timer_init" declared implicitly
-  	drv_ic_timer_init();
-..\User\app\main.c(271): warning:  #177-D: variable "ret"  was declared but never referenced
+..\User\app\main.c(198): warning:  #177-D: variable "ret"  was declared but never referenced
+  	int ret = DY_EOK;
+..\User\app\main.c(214): warning:  #177-D: variable "ret"  was declared but never referenced
   	int ret = 0;
-..\User\app\main.c(310): warning:  #177-D: variable "ret"  was declared but never referenced
+..\User\app\main.c(259): warning:  #177-D: variable "ret"  was declared but never referenced
   	int ret = 0;
-..\User\app\main.c(343): warning:  #111-D: statement is unreachable
+..\User\app\main.c(316): warning:  #111-D: statement is unreachable
   	return 0;
 ..\User\app\main.c: 14 warnings, 0 errors
 linking...
-Program Size: Code=17660 RO-data=424 RW-data=1424 ZI-data=17816  
+Program Size: Code=19002 RO-data=21782 RW-data=664 ZI-data=18176  
 After Build - User command #1: cmd /C del /q ".\Objects\*.o" ".\Objects\*.d" ".\Objects\*.crf"
-".\Objects\WD001.axf" - 0 Error(s), 108 Warning(s).
+".\Objects\WD001.axf" - 0 Error(s), 147 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -343,7 +435,7 @@ Package Vendor: Keil
 <h2>Collection of Component include folders:</h2>
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

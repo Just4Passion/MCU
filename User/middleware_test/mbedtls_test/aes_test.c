@@ -92,7 +92,7 @@ BaseType_t aes_handle(char *pcWriteBuffer, size_t xWriteBufferLen, const char *p
         return pdFALSE;
     }
 
-    aes_en_decrypt_test(pcParameter, xParameterLen, pcWriteBuffer);
+    aes_en_decrypt_test(mode, pcParameter, xParameterLen, pcWriteBuffer);
     return xReturn;
 }
 CMD_REGISTER(aes, aes: caculate inputstr aes encrypt[1] or decrypt[0], 2);

@@ -1,0 +1,21 @@
+--cpu=Cortex-M4.fp.sp
+".\objects\system_gd32f30x.o"
+".\objects\startup_gd32f30x_hd.o"
+".\objects\gd32f30x_usart.o"
+".\objects\gd32f30x_rcu.o"
+".\objects\gd32f30x_misc.o"
+".\objects\gd32f30x_gpio.o"
+".\objects\gd32f30x_bkp.o"
+".\objects\gd32f30x_pmu.o"
+".\objects\gd32f30x_timer.o"
+".\objects\debug_entry.o"
+".\objects\main.o"
+".\objects\breath_led.o"
+".\objects\gd32f30x_it.o"
+".\objects\drv_usart.o"
+".\objects\os_pendsv_tcb.o"
+".\objects\system_mng.o"
+--library_type=microlib --strict --scatter ".\Objects\TinyOS.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\TinyOS.map" -o .\Objects\TinyOS.axf

@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "chrono": "c",
-        "text_encoding": "c",
-        "typeinfo": "c"
-    }
-}
